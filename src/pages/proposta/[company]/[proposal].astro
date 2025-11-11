@@ -1,10 +1,11 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import ProposalHeader from '../../../components/ProposalHeader.astro';
-import ProposalMeta from '../../../components/ProposalMeta.astro';
+import ProposalHero from '../../../components/ProposalHero.astro';
 import TOC from '../../../components/TOC.astro';
 import PasswordPrompt from '../../../components/PasswordPrompt.astro';
+import ProposalCover from '../../../components/ProposalCover.astro';
+import VerticalRibbon from '../../../components/VerticalRibbon.astro';
 
 export async function getStaticPaths() {
   const proposals = await getCollection('proposals');
@@ -38,100 +39,115 @@ const proposalId = `${Astro.params.company}-${Astro.params.proposal}`;
 <BaseLayout
   title={`${proposal.data.title} - L8P`}
   description={proposal.data.summary || proposal.data.title}
+  hideHeader={true}
 >
-  <ProposalHeader
-    title={proposal.data.title}
+  <!-- Shared layout component -->
+  <PasswordPrompt
     proposalId={proposalId}
-    hasPassword={hasPassword}
-  />
+    correctPassword={hasPassword ? proposal.data.password! : undefined}
+  >
+    <!-- Cover page - full viewport with ribbon -->
+    <ProposalCover
+      client={proposal.data.client}
+      date={proposal.data.date}
+      consultant={proposal.data.consultant}
+    />
 
-  {hasPassword ? (
-    <PasswordPrompt proposalId={proposalId} correctPassword={proposal.data.password!}>
-      <!-- Document surface: white card on neutral background with TOC sidebar -->
-      <div class="mx-auto w-full max-w-7xl sm:px-8 sm:py-16">
-        <div class="flex gap-0 sm:gap-4 xl:gap-12">
-          <!-- Main content -->
-          <div class="flex-1 min-w-0">
-            <div class="rounded-none sm:rounded-sm border-0 sm:border border-gray-200 bg-white px-4 sm:px-8 py-8 sm:py-12 print:border-0 print:p-0">
-              <div id="proposal-meta-wrapper">
-                <ProposalMeta
-                  client={proposal.data.client}
-                  date={proposal.data.date}
-                  status={proposal.data.status}
-                  tags={proposal.data.tags}
-                />
-              </div>
-
-              <article class="prose prose-gray max-w-none">
-                <Content />
-              </article>
-
-              <script>
-                // Move metadata after the H1 title
-                const metaWrapper = document.getElementById('proposal-meta-wrapper');
-                const article = document.querySelector('article.prose');
-                const firstHeading = article?.querySelector('h1');
-
-                if (firstHeading && metaWrapper) {
-                  firstHeading.after(metaWrapper);
-                }
-              </script>
-            </div>
-          </div>
-
-          <!-- TOC sidebar (sticky on right) -->
-          {headings.length > 0 && (
-            <aside class="hidden xl:block w-64 flex-shrink-0 print:hidden">
-              <div class="sticky top-24">
-                <TOC headings={headings} />
-              </div>
-            </aside>
-          )}
-        </div>
-      </div>
-    </PasswordPrompt>
-  ) : (
     <!-- Document surface: white card on neutral background with TOC sidebar -->
     <div class="mx-auto w-full max-w-7xl sm:px-8 sm:py-16">
       <div class="flex gap-0 sm:gap-4 xl:gap-12">
         <!-- Main content -->
         <div class="flex-1 min-w-0">
-          <div class="rounded-none sm:rounded-sm border-0 sm:border border-gray-200 bg-white px-4 sm:px-8 py-8 sm:py-12 print:border-0 print:p-0">
-            <div id="proposal-meta-wrapper-2">
-              <ProposalMeta
-                client={proposal.data.client}
-                date={proposal.data.date}
-                status={proposal.data.status}
-                tags={proposal.data.tags}
-              />
-            </div>
+          <div class="document-card">
+            <!-- Hero Section -->
+            <ProposalHero
+              title={proposal.data.title}
+              subtitle={proposal.data.subtitle}
+              consultant={proposal.data.consultant}
+              client={proposal.data.client}
+              date={proposal.data.date}
+              duration={proposal.data.duration}
+              proposalId={proposalId}
+              hasPassword={hasPassword}
+            />
 
-            <article class="prose prose-gray max-w-none">
+            <!-- Content (H1 will be hidden via CSS) -->
+            <article class="prose prose-gray prose-content">
               <Content />
             </article>
-
-            <script>
-              // Move metadata after the H1 title
-              const metaWrapper = document.getElementById('proposal-meta-wrapper-2');
-              const article = document.querySelector('article.prose');
-              const firstHeading = article?.querySelector('h1');
-
-              if (firstHeading && metaWrapper) {
-                firstHeading.after(metaWrapper);
-              }
-            </script>
           </div>
         </div>
 
         <!-- TOC sidebar (sticky on right) -->
         {headings.length > 0 && (
-          <aside class="hidden xl:block w-64 flex-shrink-0 print:hidden">
-            <div class="sticky top-24">
+          <aside class="toc-sidebar">
+            <div class="toc-sticky-wrapper">
               <TOC headings={headings} />
             </div>
           </aside>
         )}
       </div>
     </div>
-  )}
+  </PasswordPrompt>
 </BaseLayout>
+
+<style>
+  .document-card {
+    border-radius: 0;
+    border: 0;
+    background: white;
+    padding: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .document-card {
+      border-radius: 0.375rem;
+      border: 1px solid var(--color-stroke, #E5E5E5);
+      padding: 2rem 3rem;
+    }
+  }
+
+  .prose-content {
+    max-width: 72ch;
+    margin: 0 auto;
+  }
+
+  /* Hide the H1 in content since it's in the hero */
+  .prose-content :global(h1) {
+    display: none;
+  }
+
+  /* Remove the hardcoded metadata section from content */
+  .prose-content :global(p:has(strong:first-child)) {
+    /* This will hide paragraphs that start with bold text (like "Consultor:") */
+    /* We'll handle this more gracefully in content migration */
+  }
+
+  .toc-sidebar {
+    display: none;
+  }
+
+  @media (min-width: 1280px) {
+    .toc-sidebar {
+      display: block;
+      width: 16rem;
+      flex-shrink: 0;
+    }
+  }
+
+  .toc-sticky-wrapper {
+    position: sticky;
+    top: 6rem;
+  }
+
+  @media print {
+    .document-card {
+      border: 0;
+      padding: 0;
+    }
+
+    .toc-sidebar {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+// No props needed - this is a pure branding element
+---
+
+<div class="vertical-ribbon" id="vertical-ribbon">
+  <div class="ribbon-track" id="ribbon-track">
+    <span class="ribbon-text">LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • </span>
+    <span class="ribbon-text">LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • </span>
+  </div>
+</div>
+
+<style>
+  .vertical-ribbon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 96px;
+    height: 100%;
+    background-color: #1E3A5F;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ribbon-track {
+    position: absolute;
+    white-space: nowrap;
+    transform: rotate(90deg);
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .ribbon-text {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    opacity: 0.6;
+  }
+
+  /* Tablet size */
+  @media (max-width: 1024px) {
+    .vertical-ribbon {
+      width: 64px;
+    }
+
+    .ribbon-text {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Hide on mobile */
+  @media (max-width: 768px) {
+    .vertical-ribbon {
+      display: none;
+    }
+  }
+
+  /* Print styles - hide ribbon */
+  @media print {
+    .vertical-ribbon {
+      display: none;
+    }
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .ribbon-track {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Use dynamic import for better Astro compatibility
+  (async () => {
+    const { animate } = await import('animejs');
+
+    const ribbonElement = document.getElementById('vertical-ribbon');
+    const ribbonTrack = document.getElementById('ribbon-track');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (ribbonElement && ribbonTrack) {
+      // Start marquee animation
+      if (!prefersReducedMotion) {
+        // Get first text span to calculate distance
+        const firstText = ribbonTrack.querySelector('.ribbon-text');
+        if (firstText) {
+          // Since rotated 90°, we use the width for the visual height
+          const textWidth = firstText.getBoundingClientRect().width;
+
+          // Set initial rotation to 90deg (don't animate it)
+          ribbonTrack.style.transform = 'rotate(90deg)';
+
+          // Animate translateX (which becomes vertical movement after rotation)
+          // In rotated space, X moves vertically on screen
+          animate(ribbonTrack, {
+            translateX: [0, -textWidth],
+            duration: 9600, // 9.6 seconds - 20% faster than before
+            easing: 'linear',
+            loop: true,
+            // Composition: add the transform instead of replacing
+            composition: 'add'
+          });
+        }
+      }
+    }
+  })();
+</script>

@@ -1,0 +1,244 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  consultant?: string;
+  client: string;
+  date: Date;
+  duration?: string;
+  proposalId?: string;
+  hasPassword?: boolean;
+}
+
+const { title, subtitle, consultant, client, date, duration, proposalId, hasPassword } = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<div id="proposal-hero" class="hero-section">
+  <!-- Action buttons (top right corner) -->
+  <div class="hero-actions">
+    <button
+      onclick="window.print()"
+      class="action-button print:hidden"
+      aria-label="Imprimir documento"
+    >
+      <svg class="button-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+      </svg>
+      <span>Imprimir</span>
+    </button>
+    {hasPassword && proposalId && (
+      <button
+        id="relock-button"
+        class="action-button print:hidden"
+        style="display: none;"
+        aria-label="Bloquear documento"
+      >
+        <svg class="button-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <span>Bloquear</span>
+      </button>
+    )}
+  </div>
+
+  <!-- Title & subtitle -->
+  <div class="hero-title-section">
+    <h1 class="hero-title">{title}</h1>
+    {subtitle && <p class="hero-subtitle">{subtitle}</p>}
+  </div>
+
+  <!-- Metadata grid -->
+  <div class="hero-metadata">
+    {consultant && (
+      <div class="metadata-item">
+        <div class="metadata-label">Consultor</div>
+        <div class="metadata-value">{consultant}</div>
+      </div>
+    )}
+    <div class="metadata-item">
+      <div class="metadata-label">Cliente</div>
+      <div class="metadata-value">{client}</div>
+    </div>
+    <div class="metadata-item">
+      <div class="metadata-label">Data</div>
+      <div class="metadata-value">{formattedDate}</div>
+    </div>
+    {duration && (
+      <div class="metadata-item">
+        <div class="metadata-label">Duração estimada</div>
+        <div class="metadata-value">{duration}</div>
+      </div>
+    )}
+  </div>
+</div>
+
+{hasPassword && proposalId && (
+  <script define:vars={{ proposalId }}>
+    const STORAGE_KEY = `proposal_unlocked_${proposalId}`;
+    const relockButton = document.getElementById('relock-button');
+
+    // Show relock button if unlocked
+    if (sessionStorage.getItem(STORAGE_KEY) === 'true' && relockButton) {
+      relockButton.style.display = 'inline-flex';
+    }
+
+    // Handle relock
+    relockButton?.addEventListener('click', () => {
+      sessionStorage.removeItem(STORAGE_KEY);
+      window.location.reload();
+    });
+  </script>
+)}
+
+<style>
+  .hero-section {
+    position: relative;
+    padding: 6rem 0 7rem 0;
+    border-bottom: 1px solid var(--color-stroke, #E5E5E5);
+  }
+
+  .hero-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text, #1A1A1A);
+    background: transparent;
+    border: 1px solid var(--color-stroke, #E5E5E5);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    opacity: 0.7;
+  }
+
+  .action-button:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  .button-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .hero-title-section {
+    margin-bottom: 3rem;
+  }
+
+  .hero-title {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--color-text, #1A1A1A);
+    margin: 0 0 0.75rem 0;
+    max-width: 72ch;
+  }
+
+  .hero-subtitle {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-text, #1A1A1A);
+    opacity: 0.7;
+    margin: 0;
+    max-width: 72ch;
+  }
+
+  .hero-metadata {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem 2rem;
+    max-width: 72ch;
+  }
+
+  .metadata-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .metadata-label {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text, #1A1A1A);
+    opacity: 0.5;
+  }
+
+  .metadata-value {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--color-text, #1A1A1A);
+  }
+
+  @media (max-width: 640px) {
+    .hero-section {
+      padding: 3rem 0 3.5rem 0;
+    }
+
+    .hero-actions {
+      position: static;
+      margin-bottom: 2rem;
+      justify-content: flex-end;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+    }
+
+    .hero-metadata {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  @media print {
+    .hero-section {
+      padding: 0 0 2rem 0;
+      border-bottom: none;
+    }
+
+    .hero-actions {
+      display: none;
+    }
+
+    .hero-title {
+      font-size: 24pt;
+      page-break-after: avoid;
+    }
+
+    .hero-subtitle {
+      font-size: 14pt;
+    }
+
+    .hero-metadata {
+      display: none; /* Hide metadata grid in print, keep it clean */
+    }
+  }
+</style>

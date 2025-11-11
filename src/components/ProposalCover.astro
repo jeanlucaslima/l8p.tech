@@ -1,0 +1,154 @@
+---
+import VerticalRibbon from './VerticalRibbon.astro';
+
+interface Props {
+  client: string;
+  date: Date;
+  consultant?: string;
+}
+
+const { client, date, consultant } = Astro.props;
+
+// Format date for display
+const formattedDate = date.toLocaleDateString('pt-BR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<div class="proposal-cover">
+  <VerticalRibbon />
+  <div class="cover-content">
+    <h1 class="cover-headline">
+      <span class="line">Community</span>
+      <span class="line">Powered</span>
+      <span class="line">Intelligence</span>
+    </h1>
+  </div>
+
+  <div class="cover-metadata">
+    <span>{client}</span>
+    <span class="separator">•</span>
+    <span>{formattedDate}</span>
+    {consultant && (
+      <>
+        <span class="separator">•</span>
+        <span>{consultant}</span>
+      </>
+    )}
+  </div>
+</div>
+
+<style>
+  .proposal-cover {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-color: #0A1628;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    /* Subtle grid background */
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 79px,
+        rgba(255, 255, 255, 0.08) 79px,
+        rgba(255, 255, 255, 0.08) 80px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 79px,
+        rgba(255, 255, 255, 0.08) 79px,
+        rgba(255, 255, 255, 0.08) 80px
+      );
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .cover-headline {
+    font-family: 'Archivo Variable', sans-serif;
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 0.95;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .cover-headline .line {
+    display: block;
+    max-width: 10ch;
+  }
+
+  .cover-metadata {
+    position: absolute;
+    bottom: 3rem;
+    right: calc(96px + 3rem);
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: #FFFFFF;
+    opacity: 0.7;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .cover-metadata .separator {
+    opacity: 0.5;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .cover-metadata {
+      right: calc(64px + 3rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cover-headline {
+      font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .cover-metadata {
+      bottom: 2rem;
+      right: 2rem;
+      left: 2rem;
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      justify-content: flex-end;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cover-metadata {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      left: 1.5rem;
+      font-size: 0.8125rem;
+    }
+  }
+
+  /* Print styles - hide cover */
+  @media print {
+    .proposal-cover {
+      display: none;
+    }
+  }
+</style>

@@ -8,13 +8,14 @@ interface Props {
   title: string;
   description?: string;
   headerTitle?: string;
+  hideHeader?: boolean;
 }
 
-const { title, description, headerTitle } = Astro.props;
+const { title, description, headerTitle, hideHeader = false } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="pt-BR" class="overflow-x-hidden">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description || 'L8P - Propostas'} />
@@ -23,8 +24,8 @@ const { title, description, headerTitle } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="flex min-h-screen w-full max-w-full flex-col overflow-x-hidden bg-[#FAFAFA] font-[Archivo_Variable] text-gray-900 antialiased">
-    <Header title={headerTitle} />
+  <body class="flex min-h-screen w-full max-w-full flex-col bg-[#FAFAFA] font-[Archivo_Variable] text-gray-900 antialiased">
+    {!hideHeader && <Header title={headerTitle} />}
     <main class="flex-1">
       <slot />
     </main>

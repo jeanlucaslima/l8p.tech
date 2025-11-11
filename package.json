@@ -12,8 +12,10 @@
     "typecheck": "astro check"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.10",
     "@fontsource-variable/archivo": "^5.2.8",
     "@tailwindcss/vite": "^4.1.17",
+    "animejs": "^4.2.2",
     "astro": "^5.15.5",
     "tailwindcss": "^4.1.17"
   },
