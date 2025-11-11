@@ -5,7 +5,7 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "Community powered intelligence.",
+    "title": "community powered intelligence.",
     "subhead": "We turn real communities into learning systems—closing the loop between people and AI."
   },
   "form": {
@@ -20,7 +20,7 @@
   },
   "brief": {
     "title": "The Brief",
-    "section1_title": "Community Powered Intelligence",
+    "section1_title": "community powered intelligence",
     "section1_content": "L8P builds feedback loops between people and AI. We turn real communities into learning systems—closing the loop between human insight and machine intelligence.",
     "section2_title": "The Problem",
     "section2_p1": "Most AI systems are trained once and deployed. They don't learn from the communities they serve. The feedback loop is broken.",
@@ -56,7 +56,7 @@
     }
   },
   "meta": {
-    "title": "L8P — Community powered intelligence",
+    "title": "L8P — community powered intelligence",
     "description": "L8P builds feedback loops between people and AI—events, research, and tools powered by community.",
     "brief_title": "The Brief — L8P",
     "lab_title": "Lab — L8P",

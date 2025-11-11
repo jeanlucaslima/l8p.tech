@@ -5,7 +5,7 @@
     "contact": "Contato"
   },
   "hero": {
-    "title": "Community powered intelligence.",
+    "title": "community powered intelligence.",
     "subhead": "Transformamos comunidades reais em sistemas de aprendizado—fechando o loop entre pessoas e IA."
   },
   "form": {
@@ -20,7 +20,7 @@
   },
   "brief": {
     "title": "O Manifesto",
-    "section1_title": "Inteligência Movida por Comunidade",
+    "section1_title": "inteligência movida por comunidade",
     "section1_content": "L8P constrói loops de feedback entre pessoas e IA. Transformamos comunidades reais em sistemas de aprendizado—fechando o loop entre insight humano e inteligência de máquina.",
     "section2_title": "O Problema",
     "section2_p1": "A maioria dos sistemas de IA é treinada uma vez e implantada. Eles não aprendem com as comunidades que servem. O loop de feedback está quebrado.",
@@ -56,7 +56,7 @@
     }
   },
   "meta": {
-    "title": "L8P — Inteligência movida por comunidade",
+    "title": "L8P — inteligência movida por comunidade",
     "description": "L8P constrói loops de feedback entre pessoas e IA—eventos, pesquisa e ferramentas movidas por comunidade.",
     "brief_title": "O Manifesto — L8P",
     "lab_title": "Lab — L8P",
