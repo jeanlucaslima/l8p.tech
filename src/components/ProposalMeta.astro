@@ -22,9 +22,8 @@ const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
 });
 ---
 
-<!-- Hero metadata: single line, minimal, understated -->
-<div class="mb-16 space-y-6 print:mb-8">
-  <!-- Single line metadata -->
+<!-- Metadata: appears after title -->
+<div class="mb-12 -mt-4 print:mb-8 print:mt-0">
   <div class="flex flex-wrap items-center gap-x-3 text-sm text-gray-500">
     <span class="font-medium text-gray-900">{client}</span>
     <span class="text-gray-300">·</span>
@@ -32,15 +31,4 @@ const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
     <span class="text-gray-300">·</span>
     <span>{statusLabels[status]}</span>
   </div>
-
-  <!-- Tags (if present) -->
-  {tags && tags.length > 0 && (
-    <div class="flex flex-wrap gap-2">
-      {tags.map((tag) => (
-        <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-          {tag}
-        </span>
-      ))}
-    </div>
-  )}
 </div>

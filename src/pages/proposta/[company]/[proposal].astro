@@ -53,16 +53,29 @@ const proposalId = `${Astro.params.company}-${Astro.params.proposal}`;
           <!-- Main content -->
           <div class="flex-1 min-w-0">
             <div class="rounded-none sm:rounded-sm border-0 sm:border border-gray-200 bg-white px-4 sm:px-8 py-8 sm:py-12 print:border-0 print:p-0">
-              <ProposalMeta
-                client={proposal.data.client}
-                date={proposal.data.date}
-                status={proposal.data.status}
-                tags={proposal.data.tags}
-              />
+              <div id="proposal-meta-wrapper">
+                <ProposalMeta
+                  client={proposal.data.client}
+                  date={proposal.data.date}
+                  status={proposal.data.status}
+                  tags={proposal.data.tags}
+                />
+              </div>
 
               <article class="prose prose-gray max-w-none">
                 <Content />
               </article>
+
+              <script>
+                // Move metadata after the H1 title
+                const metaWrapper = document.getElementById('proposal-meta-wrapper');
+                const article = document.querySelector('article.prose');
+                const firstHeading = article?.querySelector('h1');
+
+                if (firstHeading && metaWrapper) {
+                  firstHeading.after(metaWrapper);
+                }
+              </script>
             </div>
           </div>
 
@@ -84,16 +97,29 @@ const proposalId = `${Astro.params.company}-${Astro.params.proposal}`;
         <!-- Main content -->
         <div class="flex-1 min-w-0">
           <div class="rounded-none sm:rounded-sm border-0 sm:border border-gray-200 bg-white px-4 sm:px-8 py-8 sm:py-12 print:border-0 print:p-0">
-            <ProposalMeta
-              client={proposal.data.client}
-              date={proposal.data.date}
-              status={proposal.data.status}
-              tags={proposal.data.tags}
-            />
+            <div id="proposal-meta-wrapper-2">
+              <ProposalMeta
+                client={proposal.data.client}
+                date={proposal.data.date}
+                status={proposal.data.status}
+                tags={proposal.data.tags}
+              />
+            </div>
 
             <article class="prose prose-gray max-w-none">
               <Content />
             </article>
+
+            <script>
+              // Move metadata after the H1 title
+              const metaWrapper = document.getElementById('proposal-meta-wrapper-2');
+              const article = document.querySelector('article.prose');
+              const firstHeading = article?.querySelector('h1');
+
+              if (firstHeading && metaWrapper) {
+                firstHeading.after(metaWrapper);
+              }
+            </script>
           </div>
         </div>
 

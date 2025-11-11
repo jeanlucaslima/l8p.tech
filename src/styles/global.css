@@ -4,10 +4,10 @@
 .prose {
   /* Headings */
   h1 {
-    font-size: 3rem; /* 48px = 5xl */
+    font-size: 2.5rem; /* 40px = slightly smaller than 5xl */
     font-weight: 700;
     line-height: 1.15;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   h2 {
@@ -132,7 +132,7 @@
 
   /* Adjust typography for print */
   h1 {
-    font-size: 24pt;
+    font-size: 20pt;
     margin-top: 0;
   }
 
