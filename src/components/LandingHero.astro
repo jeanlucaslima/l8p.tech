@@ -55,12 +55,11 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
 <style>
   .landing-hero {
     position: relative;
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 2rem 0;
+    padding: 0;
   }
 
   .hero-container {
@@ -73,8 +72,8 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
   /* Language Toggle */
   .language-toggle-wrapper {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 4rem;
+    justify-content: flex-start;
+    margin-bottom: 3rem;
   }
 
   .language-toggle {
@@ -129,7 +128,7 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     line-height: 1.05;
     letter-spacing: -0.02em;
     color: var(--text);
-    margin: 0 0 3rem 0;
+    margin: 0 0 2rem 0;
   }
 
   /* Navigation Buttons */

@@ -2,8 +2,6 @@
 import '@fontsource-variable/archivo';
 import '../styles/global.css';
 import LandingHero from '../components/LandingHero.astro';
-import LandingRibbon from '../components/LandingRibbon.astro';
-import LandingFooter from '../components/LandingFooter.astro';
 import { t } from '../utils/i18n';
 
 const locale = (Astro.currentLocale || 'pt-BR') as 'pt-BR' | 'en';
@@ -41,23 +39,28 @@ const description = t(locale, 'meta.description');
     <main>
       <LandingHero locale={locale} />
     </main>
-    <LandingRibbon />
-    <LandingFooter locale={locale} />
   </body>
 </html>
 
 <style>
+  html {
+    overflow: hidden;
+    height: 100%;
+  }
+
   .landing-body {
     background-color: var(--ink);
     color: var(--text);
     font-family: 'Archivo Variable', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100%;
   }
 
   main {
     position: relative;
     z-index: 2;
+    height: 100%;
   }
 </style>
