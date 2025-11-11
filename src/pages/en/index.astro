@@ -1,11 +1,11 @@
 ---
 import '@fontsource-variable/archivo';
-import '../styles/global.css';
-import LandingHeader from '../components/LandingHeader.astro';
-import LandingHero from '../components/LandingHero.astro';
-import LandingRibbon from '../components/LandingRibbon.astro';
-import LandingFooter from '../components/LandingFooter.astro';
-import { t } from '../utils/i18n';
+import '../../styles/global.css';
+import LandingHeader from '../../components/LandingHeader.astro';
+import LandingHero from '../../components/LandingHero.astro';
+import LandingRibbon from '../../components/LandingRibbon.astro';
+import LandingFooter from '../../components/LandingFooter.astro';
+import { t } from '../../utils/i18n';
 
 const locale = (Astro.currentLocale || 'pt-BR') as 'pt-BR' | 'en';
 const title = t(locale, 'meta.title');

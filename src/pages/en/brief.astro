@@ -1,9 +1,9 @@
 ---
 import '@fontsource-variable/archivo';
-import '../styles/global.css';
-import LandingHeader from '../components/LandingHeader.astro';
-import LandingFooter from '../components/LandingFooter.astro';
-import { t } from '../utils/i18n';
+import '../../styles/global.css';
+import LandingHeader from '../../components/LandingHeader.astro';
+import LandingFooter from '../../components/LandingFooter.astro';
+import { t } from '../../utils/i18n';
 
 const locale = (Astro.currentLocale || 'pt-BR') as 'pt-BR' | 'en';
 const title = t(locale, 'brief.title');
