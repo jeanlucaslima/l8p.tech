@@ -3,6 +3,7 @@ import '@fontsource-variable/archivo';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -23,6 +24,9 @@ const { title, description, headerTitle, hideHeader = false } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- View Transitions -->
+    <ViewTransitions />
   </head>
   <body class="flex min-h-screen w-full max-w-full flex-col bg-[#FAFAFA] font-[Archivo_Variable] text-gray-900 antialiased">
     {!hideHeader && <Header title={headerTitle} />}

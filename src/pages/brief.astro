@@ -4,6 +4,7 @@ import '../styles/global.css';
 import LandingHeader from '../components/LandingHeader.astro';
 import LandingFooter from '../components/LandingFooter.astro';
 import { t } from '../utils/i18n';
+import { ViewTransitions } from 'astro:transitions';
 
 const locale = (Astro.currentLocale || 'pt-BR') as 'pt-BR' | 'en';
 const title = t(locale, 'brief.title');
@@ -24,6 +25,9 @@ const description = t(locale, 'meta.description');
     <link rel="alternate" hreflang="pt-BR" href={`${Astro.site || "/"}brief`} />
     <link rel="alternate" hreflang="en" href={`${Astro.site || "/"}en/brief`} />
     <link rel="alternate" hreflang="x-default" href={`${Astro.site || "/"}brief`} />
+
+    <!-- View Transitions -->
+    <ViewTransitions />
   </head>
   <body class="brief-body">
     <LandingHeader locale={locale} />
