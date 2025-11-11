@@ -6,7 +6,7 @@ status: sent
 summary: "Projeto completo para desenhar e implementar a estrutura financeira proprietária da Evenyx — incluindo Pix, boletos, cartão do promotor e adiantamento de recebíveis."
 tags: ["fintech", "consulting", "payments", "credit"]
 slug: "consultoria-fintech-2025"
-password: "evenyx2025secure"
+password: "evenyx2025"
 ---
 
 # Proposta de Consultoria Estratégica Fintech — Evenyx
