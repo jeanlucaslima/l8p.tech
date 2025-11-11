@@ -1,0 +1,379 @@
+---
+// Hero section with H1, subhead, and CTAs
+import { t } from '../utils/i18n';
+
+interface Props {
+  locale: 'pt-BR' | 'en';
+}
+
+const { locale } = Astro.props;
+---
+
+<section class="landing-hero">
+  <div class="hero-container">
+    <div class="hero-content" id="hero-content">
+      <h1 class="hero-title">{t(locale, 'hero.title')}</h1>
+      <p class="hero-subhead">
+        {t(locale, 'hero.subhead')}
+      </p>
+      <div class="hero-actions">
+        <button class="cta-primary" id="request-invite-btn">
+          {t(locale, 'hero.cta_primary')}
+        </button>
+        <a href={locale === 'en' ? '/en/brief' : '/brief'} class="cta-secondary">
+          {t(locale, 'hero.cta_secondary')}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline form (hidden by default) -->
+  <div class="invite-form-wrapper" id="invite-form" style="display: none;">
+    <div class="invite-form-container">
+      <form id="invite-form-element" class="invite-form">
+        <label for="email" class="form-label">{t(locale, 'form.email_label')}</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          placeholder={t(locale, 'form.email_placeholder')}
+          required
+          autocomplete="email"
+        />
+        <div class="form-actions">
+          <button type="submit" class="form-submit">
+            {t(locale, 'form.submit')}
+          </button>
+          <button type="button" class="form-cancel" id="cancel-btn">
+            {t(locale, 'form.cancel')}
+          </button>
+        </div>
+      </form>
+      <div id="success-message" class="success-message" style="display: none;">
+        <p>{t(locale, 'form.success')}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .landing-hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 60px; /* Header height */
+  }
+
+  .hero-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
+  }
+
+  .hero-content {
+    max-width: 720px;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .hero-title {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .hero-subhead {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--muted);
+    margin: 0 0 3rem 0;
+    max-width: 640px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-primary {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 0.875rem 2rem;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cta-primary:hover {
+    transform: scale(1.02);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .cta-primary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .cta-secondary {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .cta-secondary:hover {
+    color: var(--text);
+  }
+
+  .cta-secondary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+    color: var(--text);
+  }
+
+  /* Invite form */
+  .invite-form-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    width: 100%;
+    max-width: 420px;
+    padding: 0 1rem;
+  }
+
+  .invite-form-container {
+    background: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 2.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .form-input {
+    width: 100%;
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-input::placeholder {
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .form-submit,
+  .form-cancel {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .form-submit {
+    flex: 1;
+    background: var(--text);
+    color: var(--ink);
+    border: 1px solid var(--text);
+  }
+
+  .form-submit:hover {
+    opacity: 0.9;
+  }
+
+  .form-submit:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .form-cancel {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+  }
+
+  .form-cancel:hover {
+    color: var(--text);
+    border-color: var(--text);
+  }
+
+  .form-cancel:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .success-message {
+    text-align: center;
+  }
+
+  .success-message p {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero-container {
+      padding: 0 1rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .cta-primary {
+      width: 100%;
+      text-align: center;
+    }
+
+    .invite-form-container {
+      padding: 2rem 1.5rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .form-cancel {
+      width: 100%;
+    }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-content {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .cta-primary:hover {
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Entrance animation
+  (async () => {
+    const { animate } = await import('animejs');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const heroContent = document.getElementById('hero-content');
+
+    if (heroContent && !prefersReducedMotion) {
+      // Fade in and slide up
+      animate(heroContent, {
+        opacity: [0, 1],
+        translateY: [12, 0],
+        duration: 200,
+        easing: 'cubicBezier(0.4, 0, 0.2, 1)',
+        delay: 100
+      });
+    } else if (heroContent) {
+      // Just set opacity if motion is reduced
+      heroContent.style.opacity = '1';
+      heroContent.style.transform = 'none';
+    }
+  })();
+
+  // Form interactions
+  const requestBtn = document.getElementById('request-invite-btn');
+  const cancelBtn = document.getElementById('cancel-btn');
+  const inviteForm = document.getElementById('invite-form');
+  const formElement = document.getElementById('invite-form-element');
+  const successMessage = document.getElementById('success-message');
+
+  if (requestBtn && inviteForm && formElement && successMessage && cancelBtn) {
+    requestBtn.addEventListener('click', () => {
+      inviteForm.style.display = 'block';
+      const emailInput = document.getElementById('email') as HTMLInputElement;
+      if (emailInput) emailInput.focus();
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      inviteForm.style.display = 'none';
+      formElement.style.display = 'block';
+      successMessage.style.display = 'none';
+      formElement.reset();
+    });
+
+    formElement.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Hide form, show success message
+      formElement.style.display = 'none';
+      successMessage.style.display = 'block';
+
+      // Auto-close after 3 seconds
+      setTimeout(() => {
+        inviteForm.style.display = 'none';
+        formElement.style.display = 'block';
+        successMessage.style.display = 'none';
+        formElement.reset();
+      }, 3000);
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && inviteForm.style.display === 'block') {
+        cancelBtn.click();
+      }
+    });
+  }
+</script>

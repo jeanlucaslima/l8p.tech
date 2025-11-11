@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "lab": "Lab",
+    "newsletter": "Newsletter",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Community powered intelligence.",
+    "subhead": "We turn real communities into learning systems—closing the loop between people and AI.",
+    "cta_primary": "Request invite",
+    "cta_secondary": "Read the brief"
+  },
+  "form": {
+    "email_label": "Email address",
+    "email_placeholder": "your@email.com",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "success": "Thanks—check your inbox soon."
+  },
+  "footer": {
+    "links": "Events · Research · Tools"
+  },
+  "brief": {
+    "title": "The Brief",
+    "section1_title": "Community Powered Intelligence",
+    "section1_content": "L8P builds feedback loops between people and AI. We turn real communities into learning systems—closing the loop between human insight and machine intelligence.",
+    "section2_title": "The Problem",
+    "section2_p1": "Most AI systems are trained once and deployed. They don't learn from the communities they serve. The feedback loop is broken.",
+    "section2_p2": "Communities have deep, contextual knowledge that AI can't replicate. But that knowledge stays trapped in conversations, never feeding back into the systems that serve them.",
+    "section3_title": "Our Approach",
+    "section3_intro": "We build three types of feedback loops:",
+    "section3_events": "Events",
+    "section3_events_desc": "Structured gatherings where community knowledge surfaces and gets captured",
+    "section3_research": "Research",
+    "section3_research_desc": "Deep investigations into how communities learn and share knowledge",
+    "section3_tools": "Tools",
+    "section3_tools_desc": "Systems that make feedback loops explicit and actionable",
+    "section4_title": "Why Now",
+    "section4_p1": "AI is getting cheaper and faster. But it's not getting smarter about communities. The gap between what AI can do and what communities need is widening.",
+    "section4_p2": "We're building the infrastructure to close that gap—one loop at a time.",
+    "back_link": "← Back to home"
+  },
+  "pages": {
+    "lab": {
+      "title": "Lab",
+      "coming_soon": "Coming soon.",
+      "back_link": "← Back to home"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "coming_soon": "Coming soon.",
+      "back_link": "← Back to home"
+    },
+    "contact": {
+      "title": "Contact",
+      "coming_soon": "Coming soon.",
+      "back_link": "← Back to home"
+    }
+  },
+  "meta": {
+    "title": "L8P — Community powered intelligence",
+    "description": "L8P builds feedback loops between people and AI—events, research, and tools powered by community.",
+    "brief_title": "The Brief — L8P",
+    "lab_title": "Lab — L8P",
+    "newsletter_title": "Newsletter — L8P",
+    "contact_title": "Contact — L8P"
+  }
+}

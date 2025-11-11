@@ -1,0 +1,75 @@
+---
+import { getAlternateUrl } from '../utils/i18n';
+
+const currentLocale = Astro.currentLocale || 'pt-BR';
+const currentPath = Astro.url.pathname;
+
+// Generate alternate URLs
+const ptUrl = currentLocale === 'en'
+  ? getAlternateUrl(currentPath, 'pt-BR', currentLocale as 'en')
+  : currentPath;
+
+const enUrl = currentLocale === 'pt-BR'
+  ? getAlternateUrl(currentPath, 'en', currentLocale as 'pt-BR')
+  : currentPath;
+---
+
+<div class="language-switcher">
+  <a
+    href={ptUrl}
+    class:list={["lang-link", { active: currentLocale === 'pt-BR' }]}
+    aria-label="Português"
+    aria-current={currentLocale === 'pt-BR' ? 'page' : undefined}
+  >
+    PT
+  </a>
+  <span class="lang-divider">/</span>
+  <a
+    href={enUrl}
+    class:list={["lang-link", { active: currentLocale === 'en' }]}
+    aria-label="English"
+    aria-current={currentLocale === 'en' ? 'page' : undefined}
+  >
+    EN
+  </a>
+</div>
+
+<style>
+  .language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lang-link {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .lang-link:hover {
+    color: var(--text);
+  }
+
+  .lang-link.active {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .lang-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .lang-divider {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    color: var(--line);
+  }
+</style>

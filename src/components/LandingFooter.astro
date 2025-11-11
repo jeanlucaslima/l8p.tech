@@ -1,0 +1,66 @@
+---
+// Micro-footer for landing page
+import { t } from '../utils/i18n';
+
+interface Props {
+  locale: 'pt-BR' | 'en';
+}
+
+const { locale } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="landing-footer">
+  <div class="footer-container">
+    <p class="footer-links">
+      {t(locale, 'footer.links')}
+    </p>
+    <p class="footer-copy">
+      © {currentYear}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .landing-footer {
+    position: relative;
+    z-index: 10;
+    background-color: var(--ink);
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-links {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .footer-copy {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .footer-container {
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+  }
+</style>

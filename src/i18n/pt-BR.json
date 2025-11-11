@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "lab": "Lab",
+    "newsletter": "Newsletter",
+    "contact": "Contato"
+  },
+  "hero": {
+    "title": "Inteligência movida por comunidade.",
+    "subhead": "Transformamos comunidades reais em sistemas de aprendizado—fechando o loop entre pessoas e IA.",
+    "cta_primary": "Solicitar convite",
+    "cta_secondary": "Ler o manifesto"
+  },
+  "form": {
+    "email_label": "Endereço de e-mail",
+    "email_placeholder": "seu@email.com",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "success": "Obrigado—verifique sua caixa de entrada em breve."
+  },
+  "footer": {
+    "links": "Eventos · Pesquisa · Ferramentas"
+  },
+  "brief": {
+    "title": "O Manifesto",
+    "section1_title": "Inteligência Movida por Comunidade",
+    "section1_content": "L8P constrói loops de feedback entre pessoas e IA. Transformamos comunidades reais em sistemas de aprendizado—fechando o loop entre insight humano e inteligência de máquina.",
+    "section2_title": "O Problema",
+    "section2_p1": "A maioria dos sistemas de IA é treinada uma vez e implantada. Eles não aprendem com as comunidades que servem. O loop de feedback está quebrado.",
+    "section2_p2": "Comunidades têm conhecimento profundo e contextual que a IA não pode replicar. Mas esse conhecimento fica preso em conversas, nunca alimentando os sistemas que as servem.",
+    "section3_title": "Nossa Abordagem",
+    "section3_intro": "Construímos três tipos de loops de feedback:",
+    "section3_events": "Eventos",
+    "section3_events_desc": "Encontros estruturados onde o conhecimento da comunidade emerge e é capturado",
+    "section3_research": "Pesquisa",
+    "section3_research_desc": "Investigações profundas sobre como as comunidades aprendem e compartilham conhecimento",
+    "section3_tools": "Ferramentas",
+    "section3_tools_desc": "Sistemas que tornam os loops de feedback explícitos e acionáveis",
+    "section4_title": "Por Que Agora",
+    "section4_p1": "A IA está ficando mais barata e rápida. Mas não está ficando mais inteligente sobre comunidades. A lacuna entre o que a IA pode fazer e o que as comunidades precisam está aumentando.",
+    "section4_p2": "Estamos construindo a infraestrutura para fechar essa lacuna—um loop de cada vez.",
+    "back_link": "← Voltar para o início"
+  },
+  "pages": {
+    "lab": {
+      "title": "Lab",
+      "coming_soon": "Em breve.",
+      "back_link": "← Voltar para o início"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "coming_soon": "Em breve.",
+      "back_link": "← Voltar para o início"
+    },
+    "contact": {
+      "title": "Contato",
+      "coming_soon": "Em breve.",
+      "back_link": "← Voltar para o início"
+    }
+  },
+  "meta": {
+    "title": "L8P — Inteligência movida por comunidade",
+    "description": "L8P constrói loops de feedback entre pessoas e IA—eventos, pesquisa e ferramentas movidas por comunidade.",
+    "brief_title": "O Manifesto — L8P",
+    "lab_title": "Lab — L8P",
+    "newsletter_title": "Newsletter — L8P",
+    "contact_title": "Contato — L8P"
+  }
+}

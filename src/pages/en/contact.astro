@@ -1,0 +1,94 @@
+---
+import '@fontsource-variable/archivo';
+import '../styles/global.css';
+import LandingHeader from '../components/LandingHeader.astro';
+import LandingFooter from '../components/LandingFooter.astro';
+import { t } from '../utils/i18n';
+
+const locale = (Astro.currentLocale || 'pt-BR') as 'pt-BR' | 'en';
+const title = t(locale, 'meta.contact_title');
+const description = t(locale, 'meta.description');
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    <!-- Alternate language links -->
+    <link rel="alternate" hreflang="pt-BR" href={`${Astro.site || "/"}contact`} />
+    <link rel="alternate" hreflang="en" href={`${Astro.site || "/"}en/contact`} />
+    <link rel="alternate" hreflang="x-default" href={`${Astro.site || "/"}contact`} />
+  </head>
+  <body class="page-body">
+    <LandingHeader locale={locale} />
+    <main class="page-main">
+      <div class="page-container">
+        <h1>{t(locale, 'pages.contact.title')}</h1>
+        <p>{t(locale, 'pages.contact.coming_soon')}</p>
+        <a href={locale === 'en' ? '/en/' : '/'} class="back-link">{t(locale, 'pages.contact.back_link')}</a>
+      </div>
+    </main>
+    <LandingFooter locale={locale} />
+  </body>
+</html>
+
+<style>
+  .page-body {
+    background-color: var(--ink);
+    color: var(--text);
+    font-family: 'Archivo Variable', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-main {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+  }
+
+  .page-container {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0 0 1rem 0;
+  }
+
+  p {
+    font-size: 1.125rem;
+    color: var(--muted);
+    margin: 0 0 2rem 0;
+  }
+
+  .back-link {
+    font-size: 0.875rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--text);
+  }
+
+  .back-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+</style>

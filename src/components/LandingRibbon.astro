@@ -1,0 +1,103 @@
+---
+// Vertical ribbon with marquee animation (signature element)
+---
+
+<div class="landing-ribbon" aria-hidden="true" id="landing-ribbon">
+  <div class="ribbon-track" id="ribbon-track">
+    <span class="ribbon-text">L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • </span>
+    <span class="ribbon-text">L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • L8P • LOOP • </span>
+  </div>
+</div>
+
+<style>
+  .landing-ribbon {
+    position: fixed;
+    top: 0;
+    right: 1.5rem;
+    width: 48px;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .ribbon-track {
+    position: absolute;
+    white-space: nowrap;
+    transform: rotate(90deg);
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .ribbon-text {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.6;
+  }
+
+  /* Tablet and mobile */
+  @media (max-width: 1024px) {
+    .landing-ribbon {
+      right: 1rem;
+      width: 40px;
+    }
+
+    .ribbon-text {
+      font-size: 0.8125rem;
+    }
+  }
+
+  /* Hide on small mobile to avoid occlusion */
+  @media (max-width: 640px) {
+    .landing-ribbon {
+      display: none;
+    }
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .ribbon-track {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Use dynamic import for anime.js
+  (async () => {
+    const { animate } = await import('animejs');
+
+    const ribbonTrack = document.getElementById('ribbon-track');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (ribbonTrack && !prefersReducedMotion) {
+      // Get first text span to calculate distance
+      const firstText = ribbonTrack.querySelector('.ribbon-text');
+      if (firstText) {
+        // Since rotated 90°, we use the width for the visual height
+        const textWidth = firstText.getBoundingClientRect().width;
+
+        // Set initial rotation to 90deg (don't animate it)
+        ribbonTrack.style.transform = 'rotate(90deg)';
+
+        // Animate translateX (which becomes vertical movement after rotation)
+        // In rotated space, X moves vertically on screen
+        animate(ribbonTrack, {
+          translateX: [0, -textWidth],
+          duration: 14000, // 14 seconds - calm, constant scroll
+          easing: 'linear',
+          loop: true,
+          composition: 'add'
+        });
+      }
+    }
+  })();
+</script>

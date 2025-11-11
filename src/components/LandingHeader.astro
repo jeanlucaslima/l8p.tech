@@ -1,0 +1,123 @@
+---
+// Hypermodern minimal header for landing page
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { t } from '../utils/i18n';
+
+interface Props {
+  locale: 'pt-BR' | 'en';
+}
+
+const { locale } = Astro.props;
+---
+
+<header class="landing-header">
+  <div class="header-container">
+    <a href="/" class="wordmark">l8p</a>
+    <div class="header-right">
+      <nav class="main-nav">
+        <a href={locale === 'en' ? '/en/lab' : '/lab'} class="nav-link">{t(locale, 'nav.lab')}</a>
+        <a href={locale === 'en' ? '/en/newsletter' : '/newsletter'} class="nav-link">{t(locale, 'nav.newsletter')}</a>
+        <a href={locale === 'en' ? '/en/contact' : '/contact'} class="nav-link">{t(locale, 'nav.contact')}</a>
+      </nav>
+      <LanguageSwitcher />
+    </div>
+  </div>
+</header>
+
+<style>
+  .landing-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background-color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wordmark {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .wordmark:hover {
+    opacity: 0.8;
+  }
+
+  .wordmark:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .main-nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+  }
+
+  .nav-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+    color: var(--text);
+  }
+
+  @media (max-width: 768px) {
+    .header-right {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .header-container {
+      padding: 0 1rem;
+    }
+
+    .header-right {
+      gap: 1rem;
+    }
+
+    .main-nav {
+      gap: 1.25rem;
+    }
+
+    .nav-link {
+      font-size: 0.8125rem;
+    }
+  }
+</style>
