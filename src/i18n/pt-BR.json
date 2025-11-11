@@ -5,10 +5,8 @@
     "contact": "Contato"
   },
   "hero": {
-    "title": "Inteligência movida por comunidade.",
-    "subhead": "Transformamos comunidades reais em sistemas de aprendizado—fechando o loop entre pessoas e IA.",
-    "cta_primary": "Solicitar convite",
-    "cta_secondary": "Ler o manifesto"
+    "title": "Community powered intelligence.",
+    "subhead": "Transformamos comunidades reais em sistemas de aprendizado—fechando o loop entre pessoas e IA."
   },
   "form": {
     "email_label": "Endereço de e-mail",

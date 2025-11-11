@@ -6,9 +6,7 @@
   },
   "hero": {
     "title": "Community powered intelligence.",
-    "subhead": "We turn real communities into learning systems—closing the loop between people and AI.",
-    "cta_primary": "Request invite",
-    "cta_secondary": "Read the brief"
+    "subhead": "We turn real communities into learning systems—closing the loop between people and AI."
   },
   "form": {
     "email_label": "Email address",

@@ -1,7 +1,6 @@
 ---
 import '@fontsource-variable/archivo';
 import '../styles/global.css';
-import LandingHeader from '../components/LandingHeader.astro';
 import LandingHero from '../components/LandingHero.astro';
 import LandingRibbon from '../components/LandingRibbon.astro';
 import LandingFooter from '../components/LandingFooter.astro';
@@ -39,7 +38,6 @@ const description = t(locale, 'meta.description');
     <link rel="alternate" hreflang="x-default" href={Astro.site || "/"} />
   </head>
   <body class="landing-body">
-    <LandingHeader locale={locale} />
     <main>
       <LandingHero locale={locale} />
     </main>
