@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* Print Styles */
+@media print {
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  /* Hide interactive elements */
+  .print\:hidden,
+  button,
+  nav,
+  header,
+  footer {
+    display: none !important;
+  }
+
+  /* Ensure content is visible */
+  .print\:block {
+    display: block !important;
+  }
+
+  /* Adjust typography for print */
+  h1 {
+    font-size: 24pt;
+    margin-top: 0;
+  }
+
+  h2 {
+    font-size: 18pt;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 14pt;
+    page-break-after: avoid;
+  }
+
+  p {
+    font-size: 11pt;
+    line-height: 1.5;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Avoid breaks inside elements */
+  ul,
+  ol,
+  blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* Show links as text */
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+  }
+
+  /* Remove shadows and borders */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure proper spacing */
+  article {
+    max-width: 100%;
+    padding: 0;
+  }
+}

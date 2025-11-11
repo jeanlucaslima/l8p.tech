@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 - Página Não Encontrada" description="Página não encontrada">
+  <div class="mx-auto max-w-4xl px-4 py-16">
+    <div class="text-center">
+      <h1 class="mb-4 text-6xl font-bold text-gray-900">404</h1>
+      <p class="mb-6 text-xl text-gray-600">
+        Página não encontrada
+      </p>
+      <p class="mb-8 text-gray-500">
+        A página que você está procurando não existe ou foi movida.
+      </p>
+      <div class="flex justify-center">
+        <a
+          href="/"
+          class="rounded-lg border border-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+        >
+          Voltar ao Início
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

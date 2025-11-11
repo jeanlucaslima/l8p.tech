@@ -1,0 +1,49 @@
+---
+interface Props {
+  title: string;
+  proposalId?: string;
+  hasPassword?: boolean;
+}
+
+const { title, proposalId, hasPassword } = Astro.props;
+---
+
+<div class="sticky top-0 z-10 border-b border-gray-200 bg-white py-4 shadow-sm print:static print:border-0 print:shadow-none">
+  <div class="mx-auto flex max-w-4xl items-center justify-between px-4">
+    <h1 class="text-xl font-bold text-gray-900">{title}</h1>
+    <div class="flex items-center gap-3">
+      <button
+        onclick="window.print()"
+        class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 print:hidden"
+      >
+        Imprimir
+      </button>
+      {hasPassword && proposalId && (
+        <button
+          id="relock-button"
+          class="hidden rounded-lg border border-red-300 px-4 py-2 text-sm font-medium text-red-700 transition-colors hover:bg-red-50 print:hidden"
+        >
+          🔒 Bloquear
+        </button>
+      )}
+    </div>
+  </div>
+</div>
+
+{hasPassword && proposalId && (
+  <script define:vars={{ proposalId }}>
+    const STORAGE_KEY = `proposal_unlocked_${proposalId}`;
+    const relockButton = document.getElementById('relock-button');
+
+    // Show relock button if unlocked
+    if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+      relockButton?.classList.remove('hidden');
+    }
+
+    // Handle relock
+    relockButton?.addEventListener('click', () => {
+      sessionStorage.removeItem(STORAGE_KEY);
+      window.location.reload();
+    });
+  </script>
+)}

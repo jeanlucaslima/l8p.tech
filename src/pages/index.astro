@@ -1,16 +1,16 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="L8P - Bem-vindo" description="L8P - Propostas e parcerias estratégicas">
+  <div class="mx-auto max-w-4xl px-4 py-16">
+    <div class="text-center">
+      <h1 class="mb-6 text-5xl font-bold text-gray-900">
+        Bem-vindo ao L8P
+      </h1>
+      <p class="mb-8 text-xl text-gray-600">
+        Propostas e parcerias estratégicas
+      </p>
+    </div>
+  </div>
+</BaseLayout>

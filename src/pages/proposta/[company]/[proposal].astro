@@ -1,0 +1,81 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProposalHeader from '../../../components/ProposalHeader.astro';
+import ProposalMeta from '../../../components/ProposalMeta.astro';
+import TOC from '../../../components/TOC.astro';
+import PasswordPrompt from '../../../components/PasswordPrompt.astro';
+
+export async function getStaticPaths() {
+  const proposals = await getCollection('proposals');
+
+  return proposals.map((proposal) => {
+    // Extract company and filename from the id (e.g., "oracle-latam/plataforma-2025.md")
+    const [company, filename] = proposal.id.split('/');
+    const proposalSlug = filename.replace('.md', '');
+
+    return {
+      params: {
+        company,
+        proposal: proposalSlug
+      },
+      props: { proposal },
+    };
+  });
+}
+
+interface Props {
+  proposal: CollectionEntry<'proposals'>;
+}
+
+const { proposal } = Astro.props;
+const { Content, headings } = await proposal.render();
+
+const hasPassword = !!proposal.data.password;
+const proposalId = `${Astro.params.company}-${Astro.params.proposal}`;
+---
+
+<BaseLayout
+  title={`${proposal.data.title} - L8P`}
+  description={proposal.data.summary || proposal.data.title}
+>
+  <ProposalHeader
+    title={proposal.data.title}
+    proposalId={proposalId}
+    hasPassword={hasPassword}
+  />
+
+  {hasPassword ? (
+    <PasswordPrompt proposalId={proposalId} correctPassword={proposal.data.password!}>
+      <div class="mx-auto max-w-4xl px-4 py-8">
+        <ProposalMeta
+          client={proposal.data.client}
+          date={proposal.data.date}
+          status={proposal.data.status}
+          tags={proposal.data.tags}
+        />
+
+        {headings.length > 0 && <TOC headings={headings} />}
+
+        <article class="prose prose-gray max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:my-4 prose-li:my-2 print:prose-h1:text-2xl print:prose-h2:text-xl">
+          <Content />
+        </article>
+      </div>
+    </PasswordPrompt>
+  ) : (
+    <div class="mx-auto max-w-4xl px-4 py-8">
+      <ProposalMeta
+        client={proposal.data.client}
+        date={proposal.data.date}
+        status={proposal.data.status}
+        tags={proposal.data.tags}
+      />
+
+      {headings.length > 0 && <TOC headings={headings} />}
+
+      <article class="prose prose-gray max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:my-4 prose-li:my-2 print:prose-h1:text-2xl print:prose-h2:text-xl">
+        <Content />
+      </article>
+    </div>
+  )}
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+
+// Get all proposals and sort by date descending
+const allProposals = await getCollection('proposals');
+const sortedProposals = allProposals.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout
+  title="Propostas - L8P"
+  description="Lista de propostas disponíveis"
+  headerTitle="Propostas"
+>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    {sortedProposals.length === 0 ? (
+      <div class="rounded-lg border border-gray-200 bg-white p-12 text-center">
+        <p class="text-gray-500">Nenhuma proposta disponível no momento.</p>
+      </div>
+    ) : (
+      <div class="grid gap-6">
+        {sortedProposals.map((proposal) => {
+          const slug = proposal.slug || `${proposal.data.client}/${proposal.id.split('/')[1].replace('.md', '')}`;
+          return (
+            <Card
+              title={proposal.data.title}
+              client={proposal.data.client}
+              date={proposal.data.date}
+              status={proposal.data.status}
+              summary={proposal.data.summary}
+              tags={proposal.data.tags}
+              href={`/proposta/${slug}`}
+              hasPassword={!!proposal.data.password}
+            />
+          );
+        })}
+      </div>
+    )}
+  </div>
+</BaseLayout>
