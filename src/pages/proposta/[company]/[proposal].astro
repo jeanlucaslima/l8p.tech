@@ -47,40 +47,64 @@ const proposalId = `${Astro.params.company}-${Astro.params.proposal}`;
 
   {hasPassword ? (
     <PasswordPrompt proposalId={proposalId} correctPassword={proposal.data.password!}>
-      <!-- Document surface: white card on neutral background -->
-      <div class="mx-auto max-w-[72ch] px-8 py-16">
-        <div class="rounded-sm border border-gray-200 bg-white px-12 py-16 print:border-0 print:p-0">
-          <ProposalMeta
-            client={proposal.data.client}
-            date={proposal.data.date}
-            status={proposal.data.status}
-            tags={proposal.data.tags}
-          />
+      <!-- Document surface: white card on neutral background with TOC sidebar -->
+      <div class="mx-auto w-full max-w-7xl sm:px-8 sm:py-16">
+        <div class="flex gap-0 sm:gap-4 xl:gap-12">
+          <!-- Main content -->
+          <div class="flex-1 min-w-0">
+            <div class="rounded-none sm:rounded-sm border-0 sm:border border-gray-200 bg-white px-4 sm:px-8 py-8 sm:py-12 print:border-0 print:p-0">
+              <ProposalMeta
+                client={proposal.data.client}
+                date={proposal.data.date}
+                status={proposal.data.status}
+                tags={proposal.data.tags}
+              />
 
-          {headings.length > 0 && <TOC headings={headings} />}
+              <article class="prose prose-gray max-w-none">
+                <Content />
+              </article>
+            </div>
+          </div>
 
-          <article class="prose prose-gray max-w-none">
-            <Content />
-          </article>
+          <!-- TOC sidebar (sticky on right) -->
+          {headings.length > 0 && (
+            <aside class="hidden xl:block w-64 flex-shrink-0 print:hidden">
+              <div class="sticky top-24">
+                <TOC headings={headings} />
+              </div>
+            </aside>
+          )}
         </div>
       </div>
     </PasswordPrompt>
   ) : (
-    <!-- Document surface: white card on neutral background -->
-    <div class="mx-auto max-w-[72ch] px-8 py-16">
-      <div class="rounded-sm border border-gray-200 bg-white px-12 py-16 print:border-0 print:p-0">
-        <ProposalMeta
-          client={proposal.data.client}
-          date={proposal.data.date}
-          status={proposal.data.status}
-          tags={proposal.data.tags}
-        />
+    <!-- Document surface: white card on neutral background with TOC sidebar -->
+    <div class="mx-auto w-full max-w-7xl sm:px-8 sm:py-16">
+      <div class="flex gap-0 sm:gap-4 xl:gap-12">
+        <!-- Main content -->
+        <div class="flex-1 min-w-0">
+          <div class="rounded-none sm:rounded-sm border-0 sm:border border-gray-200 bg-white px-4 sm:px-8 py-8 sm:py-12 print:border-0 print:p-0">
+            <ProposalMeta
+              client={proposal.data.client}
+              date={proposal.data.date}
+              status={proposal.data.status}
+              tags={proposal.data.tags}
+            />
 
-        {headings.length > 0 && <TOC headings={headings} />}
+            <article class="prose prose-gray max-w-none">
+              <Content />
+            </article>
+          </div>
+        </div>
 
-        <article class="prose prose-gray max-w-none">
-          <Content />
-        </article>
+        <!-- TOC sidebar (sticky on right) -->
+        {headings.length > 0 && (
+          <aside class="hidden xl:block w-64 flex-shrink-0 print:hidden">
+            <div class="sticky top-24">
+              <TOC headings={headings} />
+            </div>
+          </aside>
+        )}
       </div>
     </div>
   )}

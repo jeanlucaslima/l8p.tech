@@ -9,14 +9,14 @@ const { title, proposalId, hasPassword } = Astro.props;
 ---
 
 <div class="sticky top-0 z-10 border-b border-gray-200 bg-white/95 backdrop-blur-sm py-3 print:static print:border-0 print:bg-white print:backdrop-blur-none">
-  <div class="mx-auto flex max-w-[72ch] items-center justify-between px-8">
-    <h1 class="truncate text-sm font-medium text-gray-600">{title}</h1>
-    <div class="flex items-center gap-1">
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-2 sm:gap-3 px-4 sm:px-8">
+    <h1 class="min-w-0 flex-1 truncate text-xs sm:text-sm font-medium text-gray-600">{title}</h1>
+    <div class="flex flex-shrink-0 items-center gap-1">
       <button
         onclick="window.print()"
-        class="inline-flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 print:hidden"
+        class="inline-flex items-center gap-1.5 sm:gap-2 rounded-sm px-3 py-2.5 sm:px-2.5 sm:py-1.5 text-sm sm:text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 active:bg-gray-200 touch-manipulation print:hidden"
       >
-        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="h-4 w-4 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
         </svg>
         <span>Imprimir</span>
@@ -24,9 +24,9 @@ const { title, proposalId, hasPassword } = Astro.props;
       {hasPassword && proposalId && (
         <button
           id="relock-button"
-          class="hidden inline-flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 print:hidden"
+          class="hidden inline-flex items-center gap-1.5 sm:gap-2 rounded-sm px-3 py-2.5 sm:px-2.5 sm:py-1.5 text-sm sm:text-xs font-medium text-gray-600 transition-colors hover:bg-gray-100 active:bg-gray-200 touch-manipulation print:hidden"
         >
-          <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="h-4 w-4 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
           <span>Bloquear</span>

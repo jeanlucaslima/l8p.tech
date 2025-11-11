@@ -9,16 +9,16 @@ slug: "consultoria-fintech-2025"
 password: "evenyx2025"
 ---
 
-# Proposta de Consultoria Estratégica Fintech — Evenyx
+# Proposta de Consultoria Estratégica Evenyx
 
 **Consultor:** Jean Lucas Lima
 **Data:** Novembro de 2025
-**Cliente:** Evenyx (líder em organização de vendas e eventos no Nordeste)
+**Cliente:** Evenyx 
 **Duração estimada:** 8 a 10 semanas
 
 ---
 
-## 🎯 Objetivo Geral
+## Objetivo Geral
 
 Desenhar e implementar uma nova **estrutura financeira** para a Evenyx, com foco em:
 - Reduzir dependências de terceiros (como FastCash);
@@ -27,9 +27,9 @@ Desenhar e implementar uma nova **estrutura financeira** para a Evenyx, com foco
 
 ---
 
-## 🧩 Escopo e Entregas
+## Escopo e Entregas
 
-### 1️⃣ Estrutura de Pagamentos (Pix Cash-In / Cash-Out)
+### Estrutura de Pagamentos (Pix Cash-In / Cash-Out)
 - Diagnóstico completo da operação atual;
 - Mapeamento de fluxos de entrada, saída, split e conciliação;
 - Benchmark e seleção de novos PSPs (Dock, Paggue, Celcoin, Qesh, Abastece Aí, etc.);
@@ -38,7 +38,7 @@ Desenhar e implementar uma nova **estrutura financeira** para a Evenyx, com foco
 
 ---
 
-### 2️⃣ Liquidação e Conciliação de Boletos
+### Liquidação e Conciliação de Boletos
 - Estudo e comparação de soluções (PJBank, Asaas, Celcoin, Qesh);
 - Desenho de fluxo de liquidação automatizado e conciliação contábil;
 - Definição de arquitetura de integração e governança financeira.
@@ -55,7 +55,7 @@ Desenhar e implementar uma nova **estrutura financeira** para a Evenyx, com foco
 
 ---
 
-## ⏱️ Cronograma de Execução
+## Cronograma de Execução
 
 | Fase | Duração | Entregável |
 |------|----------|------------|
@@ -79,7 +79,7 @@ Desenhar e implementar uma nova **estrutura financeira** para a Evenyx, com foco
 
 ---
 
-### 💎 Pacote Completo (condições integradas)
+### Pacote Completo (condições integradas)
 
 > Inclui todas as frentes com gestão unificada, cronograma otimizado e suporte contínuo.
 
@@ -88,7 +88,7 @@ Desenhar e implementar uma nova **estrutura financeira** para a Evenyx, com foco
 
 ---
 
-## 💳 Condições de Pagamento
+## Condições de Pagamento
 
 | Parcela | Percentual | Condição | Valor (base R$ 65.000) |
 |----------|-------------|-----------|------------------------|
@@ -104,7 +104,6 @@ Desenhar e implementar uma nova **estrutura financeira** para a Evenyx, com foco
 |---------|--------|------------|
 | **Modular (por fase)** | A partir de R$ 25.000 por módulo | Pode iniciar apenas com Pix e boletos |
 | **Híbrido com Success Fee** | R$ 35.000 fixos + 1,5% sobre economia anual ou volume antecipado (teto R$ 100.000) | Alinhamento total com performance |
-| **Mensal (retainer)** | R$ 22.000 / mês × 3 meses | Simplifica aprovação e acompanhamento contínuo |
 
 ---
 
@@ -121,7 +120,7 @@ O objetivo desta consultoria é **transformar essa operação em uma infraestrut
 **São Paulo, Novembro de 2025**
 **Jean Lucas Lima**
 Consultor — Estratégia Fintech & Estrutura de Pagamentos
-📧 jeanlucaslima@ — ☎️ (XX) XXXXX-XXXX
+📧 jean@confraria.tech — ☎️ (11) 95849-3835
 
 ---
 
