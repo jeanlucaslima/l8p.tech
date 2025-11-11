@@ -10,16 +10,17 @@ const tocHeadings = headings.filter((h) => h.depth === 2);
 ---
 
 {tocHeadings.length > 0 && (
-  <nav class="mb-16 print:hidden">
-    <div class="mb-4 text-xs font-medium uppercase tracking-wider text-gray-400">
+  <nav id="toc-nav" class="toc-container">
+    <div class="toc-label">
       Nesta página
     </div>
-    <ul class="space-y-2">
+    <ul class="toc-list" id="toc-list">
       {tocHeadings.map((heading) => (
         <li>
           <a
             href={`#${heading.slug}`}
-            class="block text-sm text-gray-500 transition-colors hover:text-gray-900"
+            class="toc-link"
+            data-target={heading.slug}
           >
             {heading.text}
           </a>
@@ -28,3 +29,138 @@ const tocHeadings = headings.filter((h) => h.depth === 2);
     </ul>
   </nav>
 )}
+
+<script>
+  // Show/hide TOC based on scroll position
+  const hero = document.getElementById('proposal-hero');
+  const toc = document.getElementById('toc-nav');
+
+  if (hero && toc) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Hero is visible, hide TOC
+            toc.style.opacity = '0';
+            toc.style.pointerEvents = 'none';
+          } else {
+            // Hero scrolled out of view, show TOC
+            toc.style.opacity = '1';
+            toc.style.pointerEvents = 'auto';
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '-100px 0px 0px 0px'
+      }
+    );
+
+    observer.observe(hero);
+  }
+
+  // Active section highlighting
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const headings = Array.from(document.querySelectorAll('article h2[id]'));
+
+  if (headings.length > 0 && tocLinks.length > 0) {
+    const headingObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('id');
+          const tocLink = document.querySelector(`.toc-link[data-target="${id}"]`);
+
+          if (entry.isIntersecting) {
+            // Remove active from all links
+            tocLinks.forEach((link) => link.classList.remove('toc-link-active'));
+            // Add active to current
+            tocLink?.classList.add('toc-link-active');
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: '-100px 0px -50% 0px'
+      }
+    );
+
+    headings.forEach((heading) => {
+      headingObserver.observe(heading);
+    });
+  }
+
+  // Smooth scroll for TOC links
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('data-target');
+      const target = document.getElementById(targetId!);
+
+      if (target) {
+        const offset = 100;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  .toc-container {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    margin-bottom: 4rem;
+  }
+
+  .toc-label {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text);
+    opacity: 0.35;
+    margin-bottom: 1rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .toc-link {
+    display: block;
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-text);
+    opacity: 0.4;
+    text-decoration: none;
+    transition: opacity 0.15s ease, font-weight 0.15s ease;
+  }
+
+  .toc-link:hover {
+    opacity: 0.7;
+  }
+
+  .toc-link-active {
+    font-weight: 600;
+    opacity: 0.8;
+  }
+
+  @media print {
+    .toc-container {
+      display: none;
+    }
+  }
+</style>

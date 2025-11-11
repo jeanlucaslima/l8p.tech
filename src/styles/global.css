@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Visual System - Color Palette */
+/* Visual System - Color Palette (Proposals - Light Theme) */
 :root {
   --color-background: #F8F9F8;
   --color-surface: #FFFFFF;
@@ -8,6 +8,16 @@
   --color-stroke: #E5E5E5;
   --color-accent: #4A5F5A;
   --color-text-muted: rgba(26, 26, 26, 0.7);
+}
+
+/* Landing Page - Dark Theme (Hypermodern) */
+:root {
+  --ink: #0A0A0A;
+  --text: #EDEDED;
+  --muted: #B3B3B3;
+  --line: #151515;
+  --accent: #7CFFB2;
+  --r-lg: 14px;
 }
 
 /* Base Body Styles */

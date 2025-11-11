@@ -61,9 +61,9 @@ Desenhar e implementar uma estrutura financeira própria para a Evenyx, com foco
 
 | Fase | Duração | Entregável |
 |------|----------|------------|
-| Fase 1 — Diagnóstico e mapeamento de fluxos | 2 semanas | Documento técnico inicial e shortlist de parceiros |
-| Fase 2 — Estrutura de Pagamentos (Pix/Boleto) | 3 semanas | Blueprint de integração e recomendações |
-| Fase 3 — Estrutura de Crédito e Adiantamento | 4 semanas | Modelo financeiro e plano de implantação |
+| 1. Mapeamento de fluxos | 2 semanas | Documento técnico inicial e shortlist de parceiros |
+| 2. Estrutura de Pagamentos | 3 semanas | Blueprint de integração e recomendações |
+| 3. Crédito e Adiantamento | 4 semanas | Modelo financeiro e plano de implantação |
 | Total estimado | 8–9 semanas | Projeto completo |
 
 ---
@@ -74,8 +74,8 @@ Desenhar e implementar uma estrutura financeira própria para a Evenyx, com foco
 |---------|--------------------|-------------------------------|
 | 1. Estrutura de Pagamentos (Pix) | Diagnóstico, mapeamento, seleção de PSPs e plano de migração | R$ 28.000 |
 | 2. Liquidação de Boletos | Estudo, automação contábil e integração | R$ 22.000 |
-| 3. Estrutura de Crédito / Adiantamento | Modelagem regulatória e financeira, definição de parceiros | R$ 35.000 |
-| 4. Coordenação e documentação executiva | Consolidação das entregas e roadmap final | R$ 10.000 |
+| 3. Estrutura de Crédito | Modelagem regulatória e financeira, definição de parceiros | R$ 35.000 |
+| 4. Coordenação e documentação | Consolidação das entregas e roadmap final | R$ 10.000 |
 
 **Soma dos módulos individuais:** R$ 95.000
 
@@ -94,9 +94,9 @@ Inclui todas as frentes com gestão unificada, cronograma otimizado e suporte co
 
 | Parcela | Percentual | Condição | Valor (base R$ 65.000) |
 |----------|-------------|-----------|------------------------|
-| 1ª parcela (início do projeto) | 40% | Na assinatura do contrato | R$ 26.000 |
-| 2ª parcela (fase Pix/Boleto concluída) | 30% | Após entrega dos módulos 1 e 2 | R$ 19.500 |
-| 3ª parcela (entrega final) | 30% | Na entrega do relatório final e reunião de encerramento | R$ 19.500 |
+| Início do projeto | 40% | Na assinatura do contrato | R$ 26.000 |
+| Fase Pix/Boleto | 30% | Após entrega dos módulos 1 e 2 | R$ 19.500 |
+| Entrega final | 30% | Na entrega do relatório final e reunião de encerramento | R$ 19.500 |
 
 ---
 
