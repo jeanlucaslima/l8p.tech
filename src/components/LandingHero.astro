@@ -12,6 +12,12 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
 ---
 
 <section class="landing-hero">
+  <!-- Dotted Grid Background -->
+  <div class="dotted-grid" aria-hidden="true"></div>
+
+  <!-- Noise Texture Overlay -->
+  <div class="noise-texture" aria-hidden="true"></div>
+
   <div class="hero-container">
     <!-- Language Toggle -->
     <div class="language-toggle-wrapper">
@@ -35,6 +41,11 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
 
     <div class="hero-content" id="hero-content">
       <h1 class="hero-title">{t(locale, 'hero.title')}</h1>
+
+      <!-- Blurb / Description -->
+      <p class="hero-blurb">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+      </p>
 
       <!-- Navigation Buttons -->
       <div class="nav-buttons">
@@ -60,13 +71,42 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     align-items: center;
     justify-content: flex-start;
     padding: 0;
+    overflow: hidden;
+  }
+
+  /* Dotted Grid Background */
+  .dotted-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(237, 237, 237, 0.1) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: 0 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Noise Texture Overlay */
+  .noise-texture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 2;
   }
 
   .hero-container {
+    position: relative;
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 1.5rem;
     width: 100%;
+    z-index: 3;
   }
 
   /* Language Toggle */
@@ -131,6 +171,18 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     margin: 0 0 2rem 0;
   }
 
+  /* Hero Blurb */
+  .hero-blurb {
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.005em;
+    color: var(--muted);
+    margin: 0 0 3rem 0;
+    max-width: 540px;
+  }
+
   /* Navigation Buttons */
   .nav-buttons {
     display: flex;
@@ -174,7 +226,13 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     }
 
     .hero-title {
-      margin: 0 0 2rem 0;
+      margin: 0 0 1.5rem 0;
+      font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+
+    .hero-blurb {
+      font-size: 1rem;
+      margin: 0 0 2.5rem 0;
     }
 
     .nav-buttons {
