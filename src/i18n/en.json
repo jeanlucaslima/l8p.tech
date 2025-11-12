@@ -1,11 +1,11 @@
 {
   "nav": {
-    "lab": "Lab",
-    "newsletter": "Newsletter",
-    "contact": "Contact"
+    "lab": "lab",
+    "newsletter": "newsletter",
+    "contact": "contact"
   },
   "hero": {
-    "title": "community powered intelligence.",
+    "title": "we leverage community powered intelligence.",
     "subhead": "We turn real communities into learning systems—closing the loop between people and AI."
   },
   "form": {

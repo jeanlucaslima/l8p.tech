@@ -1,8 +1,8 @@
 {
   "nav": {
-    "lab": "Lab",
-    "newsletter": "Newsletter",
-    "contact": "Contato"
+    "lab": "lab",
+    "newsletter": "newsletter",
+    "contact": "contato"
   },
   "hero": {
     "title": "community powered intelligence.",
