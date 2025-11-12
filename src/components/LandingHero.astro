@@ -154,6 +154,12 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     letter-spacing: -0.02em;
     color: var(--text);
     margin: 0 0 2rem 0;
+    background: var(--ink);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    position: relative;
+    z-index: 4;
+    width: fit-content;
   }
 
   /* Hero Blurb */
@@ -224,6 +230,7 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     .hero-title {
       margin: 0 0 1.5rem 0;
       font-size: clamp(2rem, 8vw, 2.5rem);
+      padding: 0.875rem 1.25rem;
     }
 
     .hero-blurb {
