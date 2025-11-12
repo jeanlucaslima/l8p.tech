@@ -159,7 +159,8 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     border-radius: 12px;
     position: relative;
     z-index: 4;
-    width: fit-content;
+    max-width: 720px;
+    display: block;
   }
 
   /* Hero Blurb */
@@ -171,12 +172,13 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     letter-spacing: 0.005em;
     color: var(--muted);
     margin: 0 0 3rem 0;
-    max-width: 540px;
+    max-width: 720px;
     background: var(--ink);
     padding: 1rem 1.5rem;
     border-radius: 12px;
     position: relative;
     z-index: 4;
+    display: block;
   }
 
   /* Navigation Buttons */
