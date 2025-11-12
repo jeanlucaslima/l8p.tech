@@ -1,6 +1,6 @@
 {
   "nav": {
-    "lab": "lab",
+    "lab": "labs",
     "newsletter": "newsletter",
     "contact": "contato"
   },
@@ -20,7 +20,7 @@
   },
   "brief": {
     "title": "O Manifesto",
-    "section1_title": "inteligência movida por comunidade",
+    "section1_title": "community powered intelligence",
     "section1_content": "L8P constrói loops de feedback entre pessoas e IA. Transformamos comunidades reais em sistemas de aprendizado—fechando o loop entre insight humano e inteligência de máquina.",
     "section2_title": "O Problema",
     "section2_p1": "A maioria dos sistemas de IA é treinada uma vez e implantada. Eles não aprendem com as comunidades que servem. O loop de feedback está quebrado.",
@@ -40,7 +40,7 @@
   },
   "pages": {
     "lab": {
-      "title": "Lab",
+      "title": "Labs",
       "coming_soon": "Em breve.",
       "back_link": "← Voltar para o início"
     },
@@ -56,10 +56,10 @@
     }
   },
   "meta": {
-    "title": "L8P — inteligência movida por comunidade",
-    "description": "L8P constrói loops de feedback entre pessoas e IA—eventos, pesquisa e ferramentas movidas por comunidade.",
+    "title": "we are a community powered intelligence company",
+    "description": "usando a inteligência das comunidades de tecnologia para construir o futuro",
     "brief_title": "O Manifesto — L8P",
-    "lab_title": "Lab — L8P",
+    "lab_title": "Labs — L8P",
     "newsletter_title": "Newsletter — L8P",
     "contact_title": "Contato — L8P"
   }

@@ -1,6 +1,6 @@
 {
   "nav": {
-    "lab": "lab",
+    "lab": "labs",
     "newsletter": "newsletter",
     "contact": "contact"
   },
@@ -40,7 +40,7 @@
   },
   "pages": {
     "lab": {
-      "title": "Lab",
+      "title": "Labs",
       "coming_soon": "Coming soon.",
       "back_link": "← Back to home"
     },
@@ -59,7 +59,7 @@
     "title": "L8P — community powered intelligence",
     "description": "L8P builds feedback loops between people and AI—events, research, and tools powered by community.",
     "brief_title": "The Brief — L8P",
-    "lab_title": "Lab — L8P",
+    "lab_title": "Labs — L8P",
     "newsletter_title": "Newsletter — L8P",
     "contact_title": "Contact — L8P"
   }
