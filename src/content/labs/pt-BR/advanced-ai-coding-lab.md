@@ -1,11 +1,14 @@
 ---
 title: "Advanced AI Coding Lab"
-description: "Imersão de 1 dia em IA aplicada — feito por quem constrói com IA, para quem já constrói com IA."
+description: "Imersão de 1 dia em IA aplicada — feita por quem constrói com IA, para quem já constrói com IA."
 date: 2025-12-14
+time: "das 8h às 18h"
+location: "São Paulo"
 status: "coming-soon"
 tags: ["AI", "Engenharia", "Imersão", "ConfrariaTech"]
 featured: true
 locale: "pt-BR"
+subtitle: "Imersão presencial curada pela ConfrariaTech. Vagas limitadas a 15 participantes."
 ---
 
 # Advanced AI Coding Lab
@@ -21,7 +24,7 @@ locale: "pt-BR"
 
 ## O que é
 
-Um **laboratório prático e avançado de IA** — feito por quem está construindo com IA, para quem **já está construindo com IA**.
+Um **laboratório prático e avançado de IA** — feita por quem está construindo com IA, para quem **já está construindo com IA**.
 
 Três profissionais da comunidade apresentarão seus próprios setups de produção, mostrando:
 

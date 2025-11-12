@@ -3,13 +3,16 @@ interface Props {
   title: string;
   description: string;
   date: Date;
+  time?: string;
+  location?: string;
+  subtitle?: string;
   status: 'active' | 'coming-soon' | 'archived';
   href: string;
   featured?: boolean;
   tags?: string[];
 }
 
-const { title, description, date, status, href, featured = false, tags } = Astro.props;
+const { title, description, date, time, location, subtitle, status, href, featured = false, tags } = Astro.props;
 
 const statusColors = {
   'active': 'var(--accent)',
@@ -37,13 +40,22 @@ const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
         <h3 class="lab-row-title">{title}</h3>
         <span
           class="lab-row-status"
+          data-status={status}
           style={`border-color: ${statusColors[status]}; color: ${statusColors[status]}`}
         >
           {statusLabels[status]}
         </span>
       </div>
-      <p class="lab-row-date">{formattedDate}</p>
+      <p class="lab-row-date">
+        {formattedDate}
+        {time && ` — ${time}`}
+        {location && ` (${location})`}
+      </p>
     </div>
+
+    {subtitle && (
+      <p class="lab-row-subtitle">{subtitle}</p>
+    )}
 
     <p class="lab-row-description">{description}</p>
 
@@ -149,12 +161,37 @@ const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
     white-space: nowrap;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  .lab-row-status[data-status="coming-soon"] {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
   }
 
   .lab-row-date {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .lab-row-subtitle {
     font-size: 0.875rem;
+    line-height: 1.5;
     color: var(--muted);
     margin: 0;
+    font-style: italic;
+    opacity: 0.9;
   }
 
   .lab-row-description {
@@ -187,7 +224,7 @@ const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
     font-weight: 500;
     color: var(--text);
     text-decoration: none;
-    margin-top: 0.5rem;
+    margin-top: 0.625rem;
     width: fit-content;
     transition: all 0.2s ease;
   }
@@ -229,12 +266,18 @@ const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
   @media (prefers-reduced-motion: reduce) {
     .lab-row,
     .lab-row-link,
-    .lab-row-arrow {
+    .lab-row-arrow,
+    .lab-row-status {
       transition: none;
+      animation: none !important;
     }
 
     .lab-row:hover {
       transform: none;
+    }
+
+    .lab-row-status[data-status="coming-soon"] {
+      opacity: 1 !important;
     }
   }
 </style>
