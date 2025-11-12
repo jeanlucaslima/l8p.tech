@@ -17,14 +17,14 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
     <div class="language-toggle-wrapper">
       <div class="language-toggle">
         <a
-          href={locale === 'pt-BR' ? '/' : '/'}
+          href="/"
           class={`toggle-option ${locale === 'pt-BR' ? 'active' : ''}`}
           aria-label="Português"
         >
           PT
         </a>
         <a
-          href={locale === 'en' ? '/en/' : '/en/'}
+          href="/en/"
           class={`toggle-option ${locale === 'en' ? 'active' : ''}`}
           aria-label="English"
         >
@@ -202,8 +202,8 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
 </style>
 
 <script>
-  // Entrance animation
-  (async () => {
+  // Entrance animation - runs on every page load including View Transitions
+  async function animateHero() {
     const { animate } = await import('animejs');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -223,5 +223,11 @@ const alternateUrl = locale === 'en' ? '/' : '/en/';
       heroContent.style.opacity = '1';
       heroContent.style.transform = 'none';
     }
-  })();
+  }
+
+  // Run on initial page load
+  animateHero();
+
+  // Run after View Transitions
+  document.addEventListener('astro:page-load', animateHero);
 </script>
