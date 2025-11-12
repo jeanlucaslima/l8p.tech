@@ -17,4 +17,18 @@ const proposals = defineCollection({
   }),
 });
 
-export const collections = { proposals };
+const labs = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.date(),
+    status: z.enum(['active', 'archived', 'coming-soon']).default('active'),
+    tags: z.array(z.string()).optional(),
+    featured: z.boolean().default(false),
+    locale: z.enum(['pt-BR', 'en']).default('pt-BR'),
+    externalLink: z.string().optional(),
+  }),
+});
+
+export const collections = { proposals, labs };

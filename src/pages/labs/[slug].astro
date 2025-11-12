@@ -1,0 +1,406 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import '@fontsource-variable/archivo';
+import '../../styles/global.css';
+import LandingHeader from '../../components/LandingHeader.astro';
+import LandingFooter from '../../components/LandingFooter.astro';
+import { t } from '../../utils/i18n';
+import { ViewTransitions } from 'astro:transitions';
+
+export async function getStaticPaths() {
+  const labs = await getCollection('labs');
+
+  return labs.map((lab) => {
+    // Extract slug from the id (e.g., "pt-BR/advanced-ai-coding-lab.md")
+    const slug = lab.slug.split('/').pop() || lab.slug;
+
+    return {
+      params: { slug },
+      props: { lab },
+    };
+  });
+}
+
+interface Props {
+  lab: CollectionEntry<'labs'>;
+}
+
+const { lab } = Astro.props;
+const { Content, headings } = await lab.render();
+
+const locale = lab.data.locale;
+const title = `${lab.data.title} - L8P`;
+const description = lab.data.description;
+
+const statusColors = {
+  'active': 'var(--accent)',
+  'coming-soon': 'var(--muted)',
+  'archived': 'var(--line)',
+};
+
+const statusLabels = {
+  'active': 'Ativo',
+  'coming-soon': 'Em breve',
+  'archived': 'Arquivado',
+};
+
+const formattedDate = new Date(lab.data.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'pt-BR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+
+    <!-- View Transitions -->
+    <ViewTransitions />
+  </head>
+  <body class="page-body">
+    <LandingHeader locale={locale} />
+    <main class="page-main">
+      <div class="page-container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href={locale === 'en' ? '/en/' : '/'} class="breadcrumb-link">Home</a>
+          <span class="breadcrumb-separator">/</span>
+          <a href={locale === 'en' ? '/en/labs' : '/labs'} class="breadcrumb-link">Labs</a>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current">{lab.data.title}</span>
+        </nav>
+
+        <!-- Lab Header -->
+        <header class="lab-header">
+          <div class="lab-meta">
+            <span
+              class="lab-status"
+              style={`border-color: ${statusColors[lab.data.status]}; color: ${statusColors[lab.data.status]}`}
+            >
+              {statusLabels[lab.data.status]}
+            </span>
+            <span class="lab-date">{formattedDate}</span>
+          </div>
+
+          <h1 class="lab-title">{lab.data.title}</h1>
+          <p class="lab-description">{lab.data.description}</p>
+
+          {lab.data.tags && lab.data.tags.length > 0 && (
+            <div class="lab-tags">
+              {lab.data.tags.map((tag) => (
+                <span class="lab-tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </header>
+
+        <!-- Lab Content -->
+        <article class="lab-content prose">
+          <Content />
+        </article>
+      </div>
+    </main>
+    <LandingFooter locale={locale} />
+  </body>
+</html>
+
+<style>
+  .page-body {
+    background-color: var(--ink);
+    color: var(--text);
+    font-family: 'Archivo Variable', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-main {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 8rem 1.5rem 4rem;
+  }
+
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    font-size: 0.875rem;
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .breadcrumb-link {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--text);
+  }
+
+  .breadcrumb-separator {
+    color: var(--line);
+  }
+
+  .breadcrumb-current {
+    color: var(--text);
+  }
+
+  /* Lab Header */
+  .lab-header {
+    margin-bottom: 4rem;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 0.1s forwards;
+  }
+
+  .lab-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .lab-status {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .lab-date {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .lab-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0 0 1rem 0;
+  }
+
+  .lab-description {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .lab-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .lab-tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    background-color: rgba(237, 237, 237, 0.05);
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+
+  /* Lab Content - Dark theme prose styles */
+  .lab-content {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.2s forwards;
+  }
+
+  .lab-content :global(h1) {
+    display: none; /* Hide H1 as it's already in the header */
+  }
+
+  .lab-content :global(h2) {
+    font-size: 1.875rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  .lab-content :global(h3) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .lab-content :global(h4) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .lab-content :global(p) {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  .lab-content :global(strong) {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .lab-content :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .lab-content :global(a:hover) {
+    text-decoration-color: var(--accent);
+  }
+
+  .lab-content :global(ul),
+  .lab-content :global(ol) {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .lab-content :global(li) {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .lab-content :global(table) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .lab-content :global(th) {
+    background-color: rgba(237, 237, 237, 0.03);
+    padding: 0.875rem 1rem;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  .lab-content :global(td) {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  .lab-content :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .lab-content :global(hr) {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .lab-content :global(blockquote) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem 0 1rem 1.5rem;
+    border-left: 3px solid var(--line);
+    font-style: normal;
+    color: var(--muted);
+  }
+
+  .lab-content :global(blockquote p) {
+    margin-bottom: 0.5rem;
+  }
+
+  .lab-content :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .lab-content :global(code) {
+    font-size: 0.9375rem;
+    background-color: rgba(237, 237, 237, 0.05);
+    color: var(--accent);
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+  }
+
+  .lab-content :global(pre) {
+    background-color: rgba(237, 237, 237, 0.03);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+
+  .lab-content :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .page-main {
+      padding: 10rem 2rem 6rem;
+    }
+
+    .page-container {
+      max-width: 900px;
+    }
+  }
+
+  /* Accessibility: Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .breadcrumb,
+    .lab-header,
+    .lab-content {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>

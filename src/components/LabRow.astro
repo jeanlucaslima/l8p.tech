@@ -1,0 +1,240 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  status: 'active' | 'coming-soon' | 'archived';
+  href: string;
+  featured?: boolean;
+  tags?: string[];
+}
+
+const { title, description, date, status, href, featured = false, tags } = Astro.props;
+
+const statusColors = {
+  'active': 'var(--accent)',
+  'coming-soon': 'var(--muted)',
+  'archived': 'var(--line)',
+};
+
+const statusLabels = {
+  'active': 'Ativo',
+  'coming-soon': 'Em breve',
+  'archived': 'Arquivado',
+};
+
+const formattedDate = new Date(date).toLocaleDateString('pt-BR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="lab-row" data-featured={featured}>
+  <div class="lab-row-content">
+    <div class="lab-row-header">
+      <div class="lab-row-title-wrapper">
+        <h3 class="lab-row-title">{title}</h3>
+        <span
+          class="lab-row-status"
+          style={`border-color: ${statusColors[status]}; color: ${statusColors[status]}`}
+        >
+          {statusLabels[status]}
+        </span>
+      </div>
+      <p class="lab-row-date">{formattedDate}</p>
+    </div>
+
+    <p class="lab-row-description">{description}</p>
+
+    {tags && tags.length > 0 && (
+      <div class="lab-row-tags">
+        {tags.map((tag) => (
+          <span class="lab-row-tag">{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <a href={href} class="lab-row-link">
+      Saiba mais
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="lab-row-arrow"
+      >
+        <path
+          d="M6 3L11 8L6 13"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </a>
+  </div>
+</article>
+
+<style>
+  .lab-row {
+    background-color: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .lab-row:hover {
+    border-color: var(--muted);
+    transform: translateY(-2px);
+  }
+
+  .lab-row[data-featured="true"] {
+    border-color: var(--accent);
+    border-width: 2px;
+  }
+
+  .lab-row[data-featured="true"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r-lg);
+    padding: 2px;
+    background: linear-gradient(135deg, var(--accent), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .lab-row-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .lab-row-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .lab-row-title-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .lab-row-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .lab-row-status {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid;
+    border-radius: 9999px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .lab-row-date {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .lab-row-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .lab-row-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .lab-row-tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    background-color: rgba(237, 237, 237, 0.05);
+    padding: 0.25rem 0.625rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+
+  .lab-row-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    margin-top: 0.5rem;
+    width: fit-content;
+    transition: all 0.2s ease;
+  }
+
+  .lab-row-link:hover {
+    color: var(--accent);
+    gap: 0.75rem;
+  }
+
+  .lab-row-link:hover .lab-row-arrow {
+    transform: translateX(2px);
+  }
+
+  .lab-row-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .lab-row-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .lab-row {
+      padding: 1.5rem;
+    }
+
+    .lab-row-title {
+      font-size: 1.25rem;
+    }
+
+    .lab-row-description {
+      font-size: 0.9375rem;
+    }
+  }
+
+  /* Accessibility: Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .lab-row,
+    .lab-row-link,
+    .lab-row-arrow {
+      transition: none;
+    }
+
+    .lab-row:hover {
+      transform: none;
+    }
+  }
+</style>

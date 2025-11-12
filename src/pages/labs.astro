@@ -3,12 +3,26 @@ import '@fontsource-variable/archivo';
 import '../styles/global.css';
 import LandingHeader from '../components/LandingHeader.astro';
 import LandingFooter from '../components/LandingFooter.astro';
+import LabRow from '../components/LabRow.astro';
 import { t } from '../utils/i18n';
 import { ViewTransitions } from 'astro:transitions';
+import { getCollection } from 'astro:content';
 
 const locale = (Astro.currentLocale || 'pt-BR') as 'pt-BR' | 'en';
 const title = t(locale, 'meta.lab_title');
 const description = t(locale, 'meta.description');
+
+// Get labs for current locale
+const allLabs = await getCollection('labs', ({ data }) => {
+  return data.locale === locale;
+});
+
+// Sort: featured first, then by date (newest first)
+const sortedLabs = allLabs.sort((a, b) => {
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
 ---
 
 <!doctype html>
@@ -32,9 +46,37 @@ const description = t(locale, 'meta.description');
     <LandingHeader locale={locale} />
     <main class="page-main">
       <div class="page-container">
-        <h1>{t(locale, 'pages.lab.title')}</h1>
-        <p>{t(locale, 'pages.lab.coming_soon')}</p>
-        <a href={locale === 'en' ? '/en/' : '/'} class="back-link">{t(locale, 'pages.lab.back_link')}</a>
+        <header class="page-header">
+          <h1 class="page-title">{t(locale, 'pages.lab.title')}</h1>
+          <p class="page-subtitle">{t(locale, 'pages.lab.subtitle')}</p>
+        </header>
+
+        {sortedLabs.length > 0 ? (
+          <div class="labs-grid">
+            {sortedLabs.map((lab) => {
+              // Extract just the filename part from slug (e.g., "pt-BR/advanced-ai-coding-lab" -> "advanced-ai-coding-lab")
+              const slug = lab.slug.split('/').pop() || lab.slug;
+              return (
+                <LabRow
+                  title={lab.data.title}
+                  description={lab.data.description}
+                  date={lab.data.date}
+                  status={lab.data.status}
+                  featured={lab.data.featured}
+                  tags={lab.data.tags}
+                  href={`/labs/${slug}`}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div class="empty-state">
+            <p>{t(locale, 'pages.lab.coming_soon')}</p>
+            <a href={locale === 'en' ? '/en/' : '/'} class="back-link">
+              {t(locale, 'pages.lab.back_link')}
+            </a>
+          </div>
+        )}
       </div>
     </main>
     <LandingFooter locale={locale} />
@@ -53,18 +95,20 @@ const description = t(locale, 'meta.description');
   .page-main {
     min-height: 100vh;
     min-height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 1.5rem;
+    padding: 8rem 1.5rem 4rem;
   }
 
   .page-container {
-    text-align: center;
-    max-width: 600px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  h1 {
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .page-title {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 600;
     line-height: 1.05;
@@ -73,7 +117,28 @@ const description = t(locale, 'meta.description');
     margin: 0 0 1rem 0;
   }
 
-  p {
+  .page-subtitle {
+    font-size: 1.125rem;
+    color: var(--muted);
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .labs-grid {
+    display: grid;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 0.2s forwards;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  .empty-state p {
     font-size: 1.125rem;
     color: var(--muted);
     margin: 0 0 2rem 0;
@@ -94,5 +159,38 @@ const description = t(locale, 'meta.description');
     outline: 2px solid var(--accent);
     outline-offset: 2px;
     border-radius: 2px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .page-main {
+      padding: 10rem 2rem 6rem;
+    }
+
+    .page-header {
+      margin-bottom: 5rem;
+    }
+
+    .labs-grid {
+      gap: 2rem;
+    }
+  }
+
+  /* Accessibility: Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .labs-grid {
+      animation: none;
+      opacity: 1;
+    }
   }
 </style>

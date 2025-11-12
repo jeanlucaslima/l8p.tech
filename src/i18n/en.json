@@ -41,6 +41,7 @@
   "pages": {
     "lab": {
       "title": "Labs",
+      "subtitle": "Immersive hands-on learning experiences with applied technology.",
       "coming_soon": "Coming soon.",
       "back_link": "← Back to home"
     },
