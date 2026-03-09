@@ -880,7 +880,7 @@ import { ViewTransitions } from 'astro:transitions';
       /* LOGOS GRID */
       .logos-grid {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 1px;
         background: var(--border);
         border: 1px solid var(--border);
@@ -896,6 +896,8 @@ import { ViewTransitions } from 'astro:transitions';
         justify-content: center;
         padding: 1rem;
         transition: background 0.15s;
+        text-decoration: none;
+        color: inherit;
       }
 
       .logo-slot:hover {
@@ -907,7 +909,7 @@ import { ViewTransitions } from 'astro:transitions';
         max-height: 32px;
         object-fit: contain;
         filter: grayscale(1);
-        opacity: 0.5;
+        opacity: 0.7;
         transition:
           opacity 0.15s,
           filter 0.15s;
@@ -919,12 +921,12 @@ import { ViewTransitions } from 'astro:transitions';
       }
 
       .logo-slot span {
-        font-size: 0.65rem;
-        color: var(--text-dim);
+        font-size: 0.82rem;
+        color: var(--text-muted);
         text-align: center;
         font-family: 'Geist', sans-serif;
-        font-weight: 500;
-        letter-spacing: 0.05em;
+        font-weight: 600;
+        letter-spacing: 0.04em;
       }
 
       /* AUDIENCE */
@@ -1322,18 +1324,16 @@ import { ViewTransitions } from 'astro:transitions';
           Empresas presentes na comunidade
         </p>
         <div class="logos-grid" style="margin-bottom:2rem;">
-          <div class="logo-slot"><span>Empresa 1</span></div>
-          <div class="logo-slot"><span>Empresa 2</span></div>
-          <div class="logo-slot"><span>Empresa 3</span></div>
-          <div class="logo-slot"><span>Empresa 4</span></div>
-          <div class="logo-slot"><span>Empresa 5</span></div>
-          <div class="logo-slot"><span>Empresa 6</span></div>
-          <div class="logo-slot"><span>Empresa 7</span></div>
-          <div class="logo-slot"><span>Empresa 8</span></div>
-          <div class="logo-slot"><span>Empresa 9</span></div>
-          <div class="logo-slot"><span>Empresa 10</span></div>
-          <div class="logo-slot"><span>Empresa 11</span></div>
-          <div class="logo-slot"><span>Empresa 12</span></div>
+          <a href="https://www.alura.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/alura.svg" alt="Alura" /></a>
+          <a href="https://mb.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/mb.svg" alt="MB" /></a>
+          <a href="https://mottu.com.br" target="_blank" rel="noopener" class="logo-slot"><span>Mottu</span></a>
+          <a href="https://lerian.studio" target="_blank" rel="noopener" class="logo-slot"><span>Lerian</span></a>
+          <a href="https://nubank.com.br" target="_blank" rel="noopener" class="logo-slot"><span>Nu</span></a>
+          <a href="https://jumpad.ai" target="_blank" rel="noopener" class="logo-slot"><span>Jumpad</span></a>
+          <a href="https://www.sony.com" target="_blank" rel="noopener" class="logo-slot"><span>Sony</span></a>
+          <a href="https://www.clickbus.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/clickbus.svg" alt="ClickBus" /></a>
+          <a href="https://elven.works" target="_blank" rel="noopener" class="logo-slot"><span>Elven Works</span></a>
+          <a href="https://wildlife.com" target="_blank" rel="noopener" class="logo-slot"><span>Wildlife</span></a>
         </div>
 
         <div class="cards-grid">
