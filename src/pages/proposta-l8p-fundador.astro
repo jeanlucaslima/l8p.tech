@@ -51,6 +51,7 @@ import { ViewTransitions } from 'astro:transitions';
       html {
         scroll-behavior: smooth;
         font-size: 17px;
+        overflow-x: hidden;
       }
 
       body {
@@ -1226,6 +1227,9 @@ import { ViewTransitions } from 'astro:transitions';
         }
         .creator-image {
           aspect-ratio: 4/3;
+        }
+        .creator-metrics {
+          grid-template-columns: repeat(2, 1fr);
         }
         .offer-items {
           grid-template-columns: 1fr;
