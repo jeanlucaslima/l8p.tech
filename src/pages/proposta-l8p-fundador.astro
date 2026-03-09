@@ -1,0 +1,1917 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>l8p tech — Proposta de Patrocínio Fundador</title>
+    <meta
+      name="description"
+      content="Proposta de Patrocínio Fundador para o canal l8p tech — ConfrariaTech"
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="l8p tech — Proposta de Patrocínio Fundador" />
+    <meta
+      property="og:description"
+      content="Proposta de parceria para Patrocinador Fundador do canal l8p tech"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <ViewTransitions />
+
+    <style is:global>
+      :root {
+        --bg: #e9e5df;
+        --surface: #efece7;
+        --surface2: #e3ded8;
+        --border: rgba(0, 0, 0, 0.08);
+        --text: #2a2520;
+        --text-muted: #524e49;
+        --text-dim: #8c8680;
+        --accent: #4b44e8;
+        --accent-glow: rgba(75, 68, 232, 0.07);
+        --accent2: #e85a1a;
+        --green: #16a34a;
+        --radius: 12px;
+        --radius-sm: 8px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 17px;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* TOPBAR */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2.5rem;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: rgba(233, 229, 223, 0.93);
+        backdrop-filter: blur(12px);
+        z-index: 100;
+      }
+
+      .topbar-logo {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.03em;
+        color: var(--text);
+      }
+
+      .topbar-badge {
+        background: rgba(255, 107, 53, 0.15);
+        border: 1px solid rgba(255, 107, 53, 0.3);
+        color: var(--accent2);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        padding: 0.3rem 0.8rem;
+        border-radius: 100px;
+        text-transform: uppercase;
+      }
+
+      /* CONTAINER */
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 5rem 0 4rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent-glow);
+        border: 1px solid rgba(108, 99, 255, 0.3);
+        border-radius: 100px;
+        padding: 0.3rem 0.9rem;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+      }
+
+      .hero-eyebrow::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .hero-title {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        margin-bottom: 1.2rem;
+        max-width: 780px;
+      }
+
+      .hero-title .accent {
+        color: var(--accent);
+      }
+      .hero-title .dim {
+        color: var(--text-muted);
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        color: var(--text-muted);
+        max-width: 560px;
+        line-height: 1.75;
+        margin-bottom: 3rem;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        border: 1.5px solid rgba(0, 0, 0, 0.18);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.18);
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-stat {
+        padding: 1.2rem 1rem;
+        background: var(--surface);
+        border-right: 1.5px solid rgba(0, 0, 0, 0.18);
+        text-align: center;
+      }
+
+      .hero-stat:last-child {
+        border-right: none;
+      }
+
+      .hero-stat-value {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 1.8rem;
+        color: var(--text);
+        display: block;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-stat-label {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        display: block;
+        margin-top: 0.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* SECTION */
+      .section {
+        padding: 4rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .section-label {
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.6rem;
+      }
+
+      .section-title {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 1.35rem;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 0.8rem;
+        line-height: 1.25;
+      }
+
+      .section-body {
+        font-size: 0.93rem;
+        color: var(--text-muted);
+        max-width: 640px;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      /* CARDS GRID */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .card {
+        background: var(--surface);
+        padding: 1.6rem;
+      }
+
+      .card-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--accent-glow);
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .card h4 {
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text);
+        margin-bottom: 0.4rem;
+      }
+
+      .card p {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* SCHEDULE */
+      .schedule {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.75rem;
+        margin-top: 2rem;
+      }
+
+      .schedule-day {
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.4rem 1.1rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+
+      .schedule-day:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+      }
+
+      .schedule-day::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+      }
+
+      .schedule-day:nth-child(1)::before {
+        background: #4b44e8;
+      }
+      .schedule-day:nth-child(2)::before {
+        background: #e85a1a;
+      }
+      .schedule-day:nth-child(3)::before {
+        background: #16a34a;
+      }
+      .schedule-day:nth-child(4)::before {
+        background: #0ea5e9;
+      }
+      .schedule-day:nth-child(5)::before {
+        background: #9333ea;
+      }
+
+      .schedule-day-name {
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--text-dim);
+        margin-bottom: 1rem;
+        margin-top: 0.3rem;
+      }
+
+      .schedule-day-emoji {
+        font-size: 1.6rem;
+        display: block;
+        margin-bottom: 0.75rem;
+        line-height: 1;
+      }
+
+      .schedule-day-title {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 0.88rem;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+      }
+
+      .schedule-day-desc {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        line-height: 1.55;
+        flex: 1;
+      }
+
+      .schedule-day-tag {
+        display: inline-block;
+        margin-top: 1rem;
+        font-size: 0.6rem;
+        font-weight: 600;
+        color: var(--text-dim);
+        background: var(--surface2);
+        border-radius: 100px;
+        padding: 0.2rem 0.6rem;
+        letter-spacing: 0.04em;
+        width: fit-content;
+      }
+
+      .schedule-disclaimer {
+        margin-top: 1rem;
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        font-style: italic;
+        padding-left: 0.2rem;
+      }
+
+      /* CREATOR */
+      .creator-block {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 2.5rem;
+        margin-top: 2rem;
+        align-items: start;
+      }
+
+      .creator-image {
+        width: 100%;
+        aspect-ratio: 3/4;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.6rem;
+        position: relative;
+      }
+
+      .creator-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .creator-image-label {
+        font-size: 0.68rem;
+        color: var(--text-dim);
+        text-align: center;
+        padding: 0 1.2rem;
+        line-height: 1.5;
+      }
+
+      .creator-image-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+      }
+
+      .creator-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.4rem;
+      }
+
+      .creator-name {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        margin-bottom: 0.2rem;
+      }
+
+      .creator-role {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+
+      .creator-bio {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.75;
+      }
+
+      .creator-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+      }
+
+      .creator-metric {
+        background: var(--surface);
+        padding: 0.9rem 0.8rem;
+        text-align: center;
+      }
+
+      .creator-metric-value {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--text);
+        display: block;
+        letter-spacing: -0.02em;
+      }
+
+      .creator-metric-label {
+        font-size: 0.62rem;
+        color: var(--text-dim);
+        display: block;
+        margin-top: 0.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .social-channels {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .social-channel {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 0.85rem 1.1rem;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+
+      .social-channel:hover {
+        border-color: rgba(108, 99, 255, 0.4);
+        background: var(--surface2);
+        text-decoration: none;
+      }
+
+      .social-channel-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+
+      .social-channel-icon.ig {
+        background: linear-gradient(
+          135deg,
+          #f09433 0%,
+          #e6683c 25%,
+          #dc2743 50%,
+          #cc2366 75%,
+          #bc1888 100%
+        );
+      }
+
+      .social-channel-icon.tt {
+        background: #010101;
+        border: 1px solid #2a2a2a;
+      }
+
+      .social-channel-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .social-channel-name {
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.82rem;
+        color: var(--text);
+        display: block;
+      }
+
+      .social-channel-handle {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        display: block;
+        margin-top: 0.1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .social-channel-stat {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 0.88rem;
+        color: var(--green);
+        flex-shrink: 0;
+      }
+
+      .social-channel-arrow {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        flex-shrink: 0;
+        margin-left: 0.3rem;
+      }
+
+      /* OFFER */
+      .offer-wrap {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+
+      .offer-header {
+        background: var(--accent);
+        padding: 1.4rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .offer-header-title {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: white;
+      }
+
+      .offer-header-sub {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 0.2rem;
+      }
+
+      .offer-price {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 2rem;
+        color: white;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        text-align: right;
+      }
+
+      .offer-price-sub {
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.65);
+        display: block;
+        margin-top: 0.2rem;
+        text-align: right;
+      }
+
+      .offer-body {
+        padding: 2rem;
+      }
+
+      .offer-items {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.7rem;
+        margin-bottom: 2rem;
+      }
+
+      .offer-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      .offer-item-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        margin-top: 0.45rem;
+      }
+
+      .offer-why {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--accent);
+        border-radius: var(--radius-sm);
+        padding: 1.2rem 1.4rem;
+        margin-bottom: 2rem;
+      }
+
+      .offer-why h4 {
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+
+      .offer-why p {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+
+      .offer-deadline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-top: 1.4rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .offer-deadline-label {
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-dim);
+        margin-bottom: 0.3rem;
+      }
+
+      .offer-deadline-date {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--accent2);
+      }
+
+      .offer-deadline-sub {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        margin-top: 0.2rem;
+      }
+
+      .offer-slots {
+        display: flex;
+        gap: 0.4rem;
+        align-items: center;
+      }
+
+      .slot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .slot.taken {
+        background: var(--accent);
+      }
+      .slot.open {
+        background: transparent;
+        border: 1px solid var(--text-dim);
+      }
+      .slot-label {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-left: 0.3rem;
+      }
+
+      /* STEPS / TIMELINE */
+      .steps {
+        margin-top: 2.5rem;
+        position: relative;
+        padding-left: 1.2rem;
+      }
+
+      .steps::before {
+        content: '';
+        position: absolute;
+        left: calc(1.2rem + 0.95rem);
+        top: 0.95rem;
+        bottom: 1rem;
+        width: 1px;
+        background: linear-gradient(to bottom, var(--accent), var(--border));
+        opacity: 0.35;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 2rem 1fr;
+        gap: 1.2rem;
+        padding-bottom: 2rem;
+        align-items: start;
+        position: relative;
+      }
+
+      .step:last-child {
+        padding-bottom: 0;
+      }
+
+      .step-num {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 0.65rem;
+        color: white;
+        background: var(--accent);
+        border-radius: 50%;
+        width: 1.9rem;
+        height: 1.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 0 0 3px var(--bg);
+      }
+
+      .step:nth-child(n + 2) .step-num {
+        background: var(--surface2);
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+
+      .step-body {
+        padding-top: 0.2rem;
+      }
+
+      .step h4 {
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text);
+        margin-bottom: 0.25rem;
+        line-height: 1.3;
+      }
+
+      .step p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+      }
+
+      /* METAS */
+      .metas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+
+      .meta {
+        background: var(--surface);
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+
+      .meta-num {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 3rem;
+        color: var(--text);
+        display: block;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+
+      .meta-label {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        display: block;
+        margin-top: 0.5rem;
+      }
+
+      .meta-note {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        margin-top: 0.3rem;
+        font-style: italic;
+      }
+
+      /* LOGOS GRID */
+      .logos-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .logo-slot {
+        background: var(--surface);
+        aspect-ratio: 2/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        transition: background 0.15s;
+      }
+
+      .logo-slot:hover {
+        background: var(--surface2);
+      }
+
+      .logo-slot img {
+        max-width: 100%;
+        max-height: 32px;
+        object-fit: contain;
+        filter: grayscale(1);
+        opacity: 0.5;
+        transition:
+          opacity 0.15s,
+          filter 0.15s;
+      }
+
+      .logo-slot:hover img {
+        filter: grayscale(0);
+        opacity: 1;
+      }
+
+      .logo-slot span {
+        font-size: 0.65rem;
+        color: var(--text-dim);
+        text-align: center;
+        font-family: 'Geist', sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+      }
+
+      /* AUDIENCE */
+      .audience-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .audience-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.4rem;
+      }
+
+      .audience-card-wide {
+        grid-column: span 2;
+      }
+
+      .audience-card-label {
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 1.1rem;
+        font-family: 'Geist', sans-serif;
+      }
+
+      .audience-bar-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+      }
+
+      .audience-bar-row {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .audience-bar-age {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        width: 90px;
+        flex-shrink: 0;
+      }
+
+      .audience-bar-track {
+        flex: 1;
+        height: 6px;
+        background: var(--surface2);
+        border-radius: 100px;
+        overflow: hidden;
+      }
+
+      .audience-bar-fill {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 100px;
+        opacity: 0.7;
+      }
+
+      .audience-bar-pct {
+        font-size: 0.72rem;
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        color: var(--text);
+        width: 2.5rem;
+        text-align: right;
+        flex-shrink: 0;
+      }
+
+      .audience-card-note {
+        font-size: 0.68rem;
+        color: var(--accent2);
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .audience-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .audience-tag {
+        background: var(--accent-glow);
+        border: 1px solid rgba(75, 68, 232, 0.15);
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 500;
+        padding: 0.3rem 0.7rem;
+        border-radius: 100px;
+        font-family: 'Geist', sans-serif;
+      }
+
+      /* MOCKUP */
+      .mockup-placeholder {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        background: var(--surface2);
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .mockup-screen {
+        background: #1a1a1a;
+        border-radius: 8px;
+        padding: 1.2rem;
+        max-width: 360px;
+        margin: 0 auto;
+        aspect-ratio: 9/16;
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .mockup-screen-inner {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .mockup-logo-area {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        padding: 0.4rem 0.8rem;
+        width: fit-content;
+      }
+
+      .mockup-logo-label {
+        font-size: 0.65rem;
+        color: rgba(255, 255, 255, 0.4);
+        font-family: 'Geist', sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+      }
+
+      .mockup-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .mockup-line {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+      }
+
+      .mockup-line.long {
+        width: 85%;
+      }
+      .mockup-line.medium {
+        width: 65%;
+      }
+      .mockup-line.short {
+        width: 45%;
+      }
+
+      .mockup-caption {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        margin-top: 0.8rem;
+        font-style: italic;
+      }
+
+      /* CTA */
+      .cta-block {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 2.5rem;
+      }
+
+      .cta-btn {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.85rem 1.6rem;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        transition: opacity 0.15s;
+        letter-spacing: -0.01em;
+      }
+
+      .cta-btn:hover {
+        opacity: 0.88;
+        text-decoration: none;
+      }
+
+      .cta-sub {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        margin-top: 0.7rem;
+      }
+
+      .cta-slots {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-top: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 2.5rem 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-logo {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: var(--text);
+        letter-spacing: -0.03em;
+      }
+
+      .footer-meta {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        text-align: right;
+        line-height: 1.8;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero {
+        animation: fadeUp 0.5s ease both 0.05s;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 700px) {
+        .topbar {
+          padding: 1rem 1.5rem;
+        }
+        .container {
+          padding: 0 1.5rem;
+        }
+        .hero {
+          padding: 3rem 0 2.5rem;
+        }
+        .hero-stats {
+          width: 100%;
+          flex-wrap: wrap;
+        }
+        .hero-stat {
+          flex: 1 1 40%;
+        }
+        .schedule {
+          grid-template-columns: 1fr 1fr;
+        }
+        .creator-block {
+          grid-template-columns: 1fr;
+        }
+        .creator-image {
+          aspect-ratio: 4/3;
+        }
+        .offer-items {
+          grid-template-columns: 1fr;
+        }
+        .metas {
+          grid-template-columns: 1fr;
+        }
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+        .logos-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .audience-grid {
+          grid-template-columns: 1fr;
+        }
+        .audience-card-wide {
+          grid-column: span 1;
+        }
+        .cta-block {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .footer-meta {
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topbar">
+      <span class="topbar-logo">🔁 l8p tech</span>
+      <span class="topbar-badge">Patrocinador Fundador · Slot único</span>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-eyebrow">ConfrariaTech · Proposta de Parceria · Março 2026</div>
+        <h1 class="hero-title">
+          O canal diário de tech<br />
+          <span class="dim">para</span>
+          <span class="accent">profissionais do Brasil.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Vídeos diários sobre tecnologia para devs, PMs, engenheiros e líderes, com análise de quem
+          produz e lidera os principais times de tech do Brasil.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-value">1.200+</span>
+            <span class="hero-stat-label">Líderes na ConfrariaTech</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">5×</span>
+            <span class="hero-stat-label">Publicações/semana</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">90d</span>
+            <span class="hero-stat-label">Ciclo inicial</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">R$5k</span>
+            <span class="hero-stat-label">Por mês</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01. POSICIONAMENTO -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">01 — Posicionamento</p>
+        <h2 class="section-title">Tecnologia com contexto de negócios</h2>
+        <p class="section-body">
+          Formação em Economia mais acesso direto à comunidade tech resulta em cobertura que poucos
+          canais conseguem fazer: análise de tendências com impacto real no mercado. O público são
+          profissionais que já consomem conteúdo técnico e querem mais do que manchete.
+        </p>
+
+        <!-- ConfrariaTech explainer -->
+        <div class="offer-why" style="margin-bottom: 1.5rem;">
+          <h4>ConfrariaTech e quem está por trás</h4>
+          <p>
+            A ConfrariaTech reúne os profissionais técnicos mais influentes do Brasil: CTOs, heads
+            de engenharia, founders e líderes de produto. São mais de 1.200 membros com acesso
+            restrito e curado por indicação.
+          </p>
+          <p style="margin-top:0.75rem;">
+            O l8p tech nasce dentro dessa comunidade e é curado por <strong
+              ><a href="https://www.linkedin.com/in/jeanlucaslima" target="_blank"
+                >Jean Lucas Lima</a
+              ></strong
+            >, fundador da ConfrariaTech com atuação em estratégia de produto e tecnologia. Jean
+            Lucas responde pelo acesso às fontes, pela curadoria editorial e pela continuidade do
+            projeto independente de quem está na câmera.
+          </p>
+        </div>
+
+        <!-- Logos das empresas presentes na ConfrariaTech -->
+        <p
+          style="font-size:0.68rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dim); margin-bottom:0.8rem;"
+        >
+          Empresas presentes na comunidade
+        </p>
+        <div class="logos-grid" style="margin-bottom:2rem;">
+          <div class="logo-slot"><span>Empresa 1</span></div>
+          <div class="logo-slot"><span>Empresa 2</span></div>
+          <div class="logo-slot"><span>Empresa 3</span></div>
+          <div class="logo-slot"><span>Empresa 4</span></div>
+          <div class="logo-slot"><span>Empresa 5</span></div>
+          <div class="logo-slot"><span>Empresa 6</span></div>
+          <div class="logo-slot"><span>Empresa 7</span></div>
+          <div class="logo-slot"><span>Empresa 8</span></div>
+          <div class="logo-slot"><span>Empresa 9</span></div>
+          <div class="logo-slot"><span>Empresa 10</span></div>
+          <div class="logo-slot"><span>Empresa 11</span></div>
+          <div class="logo-slot"><span>Empresa 12</span></div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <h4>Audiência técnica qualificada</h4>
+            <p>
+              Devs, PMs, engenheiros e founders que consomem conteúdo técnico ativamente e
+              influenciam decisões de contratação nas suas empresas.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <h4>Visão econômica</h4>
+            <p>
+              Análises que conectam tecnologia a impacto de negócios. Uma perspectiva pouco
+              explorada no conteúdo tech em português.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🤝</div>
+            <h4>Acesso à comunidade</h4>
+            <p>
+              Os membros da ConfrariaTech são as fontes e os entrevistados do canal. Os mesmos
+              profissionais que aparecem no conteúdo o distribuem para suas redes.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔁</div>
+            <h4>Cadência diária</h4>
+            <p>
+              Formatos fixos por dia da semana criam hábito de consumo e tornam o patrocinador parte
+              da rotina da audiência.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. GRADE SEMANAL -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">02 — Grade Semanal</p>
+        <h2 class="section-title">Grade semanal</h2>
+        <p class="section-body">
+          Cada dia útil tem um formato fixo com propósito e produção distintos. A estrutura foi
+          pensada para sustentar o ritmo diário sem sobrecarregar a operação.
+        </p>
+        <div class="schedule">
+          <div class="schedule-day">
+            <p class="schedule-day-name">Segunda</p>
+            <span class="schedule-day-emoji">📰</span>
+            <p class="schedule-day-title">Tech News</p>
+            <p class="schedule-day-desc">
+              Notícia do ecossistema com análise de impacto para o mercado brasileiro, publicada
+              enquanto o assunto ainda está em pauta
+            </p>
+            <span class="schedule-day-tag">45–60s</span>
+          </div>
+          <div class="schedule-day">
+            <p class="schedule-day-name">Terça</p>
+            <span class="schedule-day-emoji">🧠</span>
+            <p class="schedule-day-title">Tech Opinion</p>
+            <p class="schedule-day-desc">
+              Ponto de vista sobre a notícia da semana com contexto econômico
+            </p>
+            <span class="schedule-day-tag">45–60s</span>
+          </div>
+          <div class="schedule-day">
+            <p class="schedule-day-name">Quarta</p>
+            <span class="schedule-day-emoji">💡</span>
+            <p class="schedule-day-title">Tech Tips</p>
+            <p class="schedule-day-desc">
+              Ferramenta ou método prático. Conteúdo atemporal, produzido em lote para garantir o
+              ritmo
+            </p>
+            <span class="schedule-day-tag">30–45s</span>
+          </div>
+          <div class="schedule-day">
+            <p class="schedule-day-name">Quinta</p>
+            <span class="schedule-day-emoji">🎤</span>
+            <p class="schedule-day-title">Tech Talks</p>
+            <p class="schedule-day-desc">
+              Entrevista com CTOs, founders e engenheiros sênior, gravada com antecedência
+            </p>
+            <span class="schedule-day-tag">60–90s</span>
+          </div>
+          <div class="schedule-day">
+            <p class="schedule-day-name">Sexta</p>
+            <span class="schedule-day-emoji">🗞️</span>
+            <p class="schedule-day-title">Tech Recap</p>
+            <p class="schedule-day-desc">Os principais acontecimentos da semana em análise</p>
+            <span class="schedule-day-tag">60–90s</span>
+          </div>
+        </div>
+        <p class="schedule-disclaimer">
+          Grade inicial sujeita a ajustes conforme o desenvolvimento editorial do canal.
+        </p>
+      </div>
+    </section>
+
+    <!-- 03. CRIADORA -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">03 — Quem Produz</p>
+        <h2 class="section-title">Quem produz</h2>
+        <p class="section-body">
+          Maria Eduarda Mota já produz 5 vídeos por semana no Daily Journal com edição profissional,
+          suporte estratégico e crescimento orgânico documentado. O l8p tech usa essa mesma
+          estrutura de produção no nicho técnico que o Daily Journal não cobre.
+        </p>
+
+        <div class="creator-block">
+          <div class="creator-image">
+            <!-- Troque o src pela foto real da Maria Eduarda -->
+            <!-- <img src="foto-maria-eduarda.jpg" alt="Maria Eduarda Mota"> -->
+            <div class="creator-image-icon">👤</div>
+            <p class="creator-image-label">Foto de Maria Eduarda<br />a adicionar</p>
+          </div>
+
+          <div class="creator-info">
+            <div>
+              <p class="creator-name">Maria Eduarda Mota</p>
+              <p class="creator-role">Criadora de Conteúdo · Economista · Gen Z</p>
+            </div>
+            <p class="creator-bio">
+              Economista de formação, opera em regime de 5 vídeos por semana no Daily Journal, canal
+              de cobertura de startups com edição profissional e crescimento orgânico documentado. O
+              l8p tech aplica esse modelo de produção ao nicho técnico: devs, engenheiros, PMs e
+              líderes que o Daily Journal não alcança.
+            </p>
+            <div class="creator-metrics">
+              <div class="creator-metric">
+                <span class="creator-metric-value">10k</span>
+                <span class="creator-metric-label">Seguidores</span>
+              </div>
+              <div class="creator-metric">
+                <span class="creator-metric-value">100k+</span>
+                <span class="creator-metric-label">Views / mês</span>
+              </div>
+              <div class="creator-metric">
+                <span class="creator-metric-value">5×/sem</span>
+                <span class="creator-metric-label">Cadência atual</span>
+              </div>
+              <div class="creator-metric">
+                <span class="creator-metric-value">Orgânico</span>
+                <span class="creator-metric-label">Zero paid</span>
+              </div>
+            </div>
+            <div class="social-channels">
+              <a
+                href="https://www.instagram.com/m.daily.journal"
+                target="_blank"
+                class="social-channel"
+              >
+                <div class="social-channel-icon ig">📸</div>
+                <div class="social-channel-info">
+                  <span class="social-channel-name">Instagram</span>
+                  <span class="social-channel-handle"
+                    >@m.daily.journal — operação de referência</span
+                  >
+                </div>
+                <span class="social-channel-stat">10k</span>
+                <span class="social-channel-arrow">↗</span>
+              </a>
+              <a
+                href="https://www.tiktok.com/@m.daily.journal"
+                target="_blank"
+                class="social-channel"
+              >
+                <div class="social-channel-icon tt">🎵</div>
+                <div class="social-channel-info">
+                  <span class="social-channel-name">TikTok</span>
+                  <span class="social-channel-handle"
+                    >@m.daily.journal — operação de referência</span
+                  >
+                </div>
+                <span class="social-channel-stat">Ver</span>
+                <span class="social-channel-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. METAS -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">04 — Metas</p>
+        <h2 class="section-title">Primeiros 90 dias</h2>
+        <p class="section-body">
+          Projeções baseadas no histórico da criadora. Conservadoras por design.
+        </p>
+        <div class="metas">
+          <div class="meta">
+            <span class="meta-num">60+</span>
+            <span class="meta-label">Vídeos publicados</span>
+            <p class="meta-note">5 por semana, sem interrupção</p>
+          </div>
+          <div class="meta">
+            <span class="meta-num">5k</span>
+            <span class="meta-label">Seguidores (meta)</span>
+            <p class="meta-note">Instagram &amp; TikTok</p>
+          </div>
+          <div class="meta">
+            <span class="meta-num">12</span>
+            <span class="meta-label">Líderes entrevistados</span>
+            <p class="meta-note">Começando pela liderança técnica da Mottu</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04b. AUDIÊNCIA -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">04b — Perfil da Audiência</p>
+        <h2 class="section-title">Quem vai ver sua marca</h2>
+        <p class="section-body">
+          Dados de referência do canal @m.daily.journal, proxy direto do público que o l8p tech vai
+          alcançar.
+        </p>
+        <div class="audience-grid">
+          <div class="audience-card">
+            <p class="audience-card-label">Faixa etária principal</p>
+            <div class="audience-bar-group">
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">18–24</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:28%"></div>
+                </div>
+                <span class="audience-bar-pct">28%</span>
+              </div>
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">25–34</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:52%"></div>
+                </div>
+                <span class="audience-bar-pct">52%</span>
+              </div>
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">35–44</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:14%"></div>
+                </div>
+                <span class="audience-bar-pct">14%</span>
+              </div>
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">45+</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:6%"></div>
+                </div>
+                <span class="audience-bar-pct">6%</span>
+              </div>
+            </div>
+            <p class="audience-card-note">
+              ⚠ Substitua pelos dados reais do Instagram Insights da Maria Eduarda
+            </p>
+          </div>
+          <div class="audience-card">
+            <p class="audience-card-label">Principais mercados</p>
+            <div class="audience-bar-group">
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">São Paulo</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:45%"></div>
+                </div>
+                <span class="audience-bar-pct">45%</span>
+              </div>
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">Rio de Janeiro</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:18%"></div>
+                </div>
+                <span class="audience-bar-pct">18%</span>
+              </div>
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">Belo Horizonte</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:10%"></div>
+                </div>
+                <span class="audience-bar-pct">10%</span>
+              </div>
+              <div class="audience-bar-row">
+                <span class="audience-bar-age">Outros BR</span>
+                <div class="audience-bar-track">
+                  <div class="audience-bar-fill" style="width:27%"></div>
+                </div>
+                <span class="audience-bar-pct">27%</span>
+              </div>
+            </div>
+            <p class="audience-card-note">
+              ⚠ Substitua pelos dados reais do Instagram Insights da Maria Eduarda
+            </p>
+          </div>
+          <div class="audience-card audience-card-wide">
+            <p class="audience-card-label">Perfil profissional — ConfrariaTech (1.200+ membros)</p>
+            <div class="audience-tags">
+              <span class="audience-tag">Engenheiros de Software</span>
+              <span class="audience-tag">CTOs &amp; VPs de Tecnologia</span>
+              <span class="audience-tag">Product Managers</span>
+              <span class="audience-tag">Heads de Engenharia</span>
+              <span class="audience-tag">Founders Técnicos</span>
+              <span class="audience-tag">Arquitetos de Software</span>
+              <span class="audience-tag">Tech Leads</span>
+              <span class="audience-tag">DevOps &amp; SRE</span>
+            </div>
+            <p class="audience-card-note" style="margin-top:0.8rem;">
+              Acesso curado — membros indicados por pares dentro do ecossistema
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. OFERTA -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">05 — Proposta à Mottu</p>
+        <h2 class="section-title">Patrocinador Fundador</h2>
+        <p class="section-body">
+          Uma janela de entrada antes do canal ganhar escala. Slot exclusivo por categoria pelo
+          ciclo inaugural.
+        </p>
+        <div class="offer-wrap">
+          <div class="offer-header">
+            <div>
+              <p class="offer-header-title">Patrocinador Fundador · Exclusivo</p>
+              <p class="offer-header-sub">3 meses · Ciclo inaugural · Slot único disponível</p>
+            </div>
+            <div>
+              <p class="offer-price">R$ 15.000</p>
+              <span class="offer-price-sub">R$ 5.000 / mês</span>
+            </div>
+          </div>
+          <div class="offer-body">
+            <div class="offer-items">
+              <div class="offer-item">
+                <div class="offer-item-dot"></div>Logo em todos os vídeos e artes do canal
+              </div>
+              <div class="offer-item">
+                <div class="offer-item-dot"></div>Exclusividade de categoria no período
+              </div>
+              <div class="offer-item">
+                <div class="offer-item-dot"></div>Liderança técnica da Mottu entrevistada em Tech
+                Talks especial
+              </div>
+              <div class="offer-item">
+                <div class="offer-item-dot"></div>Menção como patrocinador fundador em cada episódio
+              </div>
+              <div class="offer-item">
+                <div class="offer-item-dot"></div>Influência no formato, temas e posicionamento
+              </div>
+              <div class="offer-item">
+                <div class="offer-item-dot"></div>Report mensal: alcance, impressões, engajamento
+                por vídeo, prints
+              </div>
+            </div>
+            <div
+              style="display:flex; align-items:flex-start; gap:0.75rem; background:var(--accent-glow); border:1px solid rgba(75,68,232,0.15); border-radius:var(--radius-sm); padding:1rem 1.2rem; margin-bottom:1.5rem;"
+            >
+              <span style="font-size:1rem; flex-shrink:0; margin-top:0.05rem;">🔒</span>
+              <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.65; margin:0;">
+                <strong style="color:var(--text);">Pagamento só começa com o canal no ar.</strong> O
+                primeiro ciclo mensal (R$5.000) é faturado após a publicação do primeiro vídeo. Nenhum
+                valor é devido antes disso.
+              </p>
+            </div>
+
+            <!-- Mockup placeholder -->
+            <div class="mockup-placeholder">
+              <div class="mockup-screen">
+                <div class="mockup-screen-inner">
+                  <div class="mockup-logo-area">
+                    <span class="mockup-logo-label">Logo Mottu</span>
+                  </div>
+                  <div class="mockup-content">
+                    <div class="mockup-line long"></div>
+                    <div class="mockup-line medium"></div>
+                    <div class="mockup-line short"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="mockup-caption">
+                Exemplo de posicionamento do logo nos vídeos · Mockup real a ser entregue após
+                briefing
+              </p>
+            </div>
+            <div class="offer-why">
+              <h4>Por que faz sentido para a Mottu</h4>
+              <p>
+                O l8p tech fala com devs, engenheiros, PMs e líderes técnicos, o público que a Mottu
+                precisa alcançar para construir marca empregadora em tecnologia. Entrar no canal no
+                lançamento garante presença antes da escala, quando o custo de associação ainda é de
+                fundador.
+              </p>
+            </div>
+
+            <!-- Custo por alcance vs. concorrentes -->
+            <div style="margin-bottom: 2rem;">
+              <p
+                style="font-size:0.68rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;"
+              >
+                Custo por alcance — comparativo
+              </p>
+              <div
+                style="display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden;"
+              >
+                <div style="background:var(--surface2); padding:1.1rem 1rem; text-align:center;">
+                  <span
+                    style="font-family:'Geist', sans-serif; font-weight:800; font-size:1.4rem; color:var(--text-muted); display:block; letter-spacing:-0.03em;"
+                    >R$25–60</span
+                  >
+                  <span
+                    style="font-size:0.62rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-top:0.3rem;"
+                    >CPM · LinkedIn Ads</span
+                  >
+                  <span
+                    style="font-size:0.7rem; color:var(--text-dim); display:block; margin-top:0.4rem;"
+                    >Público amplo, sem curadoria</span
+                  >
+                </div>
+                <div style="background:var(--surface2); padding:1.1rem 1rem; text-align:center;">
+                  <span
+                    style="font-family:'Geist', sans-serif; font-weight:800; font-size:1.4rem; color:var(--text-muted); display:block; letter-spacing:-0.03em;"
+                    >R$10–30</span
+                  >
+                  <span
+                    style="font-size:0.62rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-top:0.3rem;"
+                    >CPM · Meta Ads</span
+                  >
+                  <span
+                    style="font-size:0.7rem; color:var(--text-dim); display:block; margin-top:0.4rem;"
+                    >Alto volume, baixa intenção</span
+                  >
+                </div>
+                <div
+                  style="background:var(--accent-glow); border:1px solid rgba(75,68,232,0.2); padding:1.1rem 1rem; text-align:center;"
+                >
+                  <span
+                    style="font-family:'Geist', sans-serif; font-weight:800; font-size:1.4rem; color:var(--accent); display:block; letter-spacing:-0.03em;"
+                    >Nicho</span
+                  >
+                  <span
+                    style="font-size:0.62rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-top:0.3rem;"
+                    >l8p tech</span
+                  >
+                  <span
+                    style="font-size:0.7rem; color:var(--text-muted); display:block; margin-top:0.4rem;"
+                    >Profissionais tech qualificados, contexto editorial, sem ruído</span
+                  >
+                </div>
+              </div>
+              <p style="font-size:0.75rem; color:var(--text-dim); margin-top:0.7rem;">
+                LinkedIn e Meta são canais de volume. O l8p tech é um canal de nicho: quem assiste
+                já trabalha com tecnologia e está ativamente consumindo conteúdo do setor.
+              </p>
+            </div>
+            <div class="offer-deadline">
+              <div>
+                <p class="offer-deadline-label">Oferta válida até</p>
+                <p class="offer-deadline-date">20 de março de 2026</p>
+                <p class="offer-deadline-sub">Após esta data, o slot abre para outros parceiros</p>
+              </div>
+              <div class="offer-slots">
+                <div class="slot taken"></div>
+                <div class="slot open"></div>
+                <div class="slot open"></div>
+                <span class="slot-label">1 de 3 possíveis fundadores · 2 slots restantes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. PRÓXIMOS PASSOS -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">06 — Próximos passos</p>
+        <h2 class="section-title">Do acordo à estreia</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h4>Briefing de marca empregadora</h4><p>
+                Alinhamento de posicionamento, tom e objetivos de recrutamento da Mottu
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h4>Logo e assets no canal</h4><p>
+                Entrega de mockup com a marca Mottu integrada nos vídeos, thumbs e artes
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h4>Tech Talks com a liderança técnica da Mottu</h4><p>
+                Gravação do episódio de estreia do canal
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-body">
+              <h4>Lançamento público</h4><p>
+                Estreia editorial com cobertura ao vivo. Mottu presente desde o primeiro conteúdo
+                publicado
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">05</div>
+            <div class="step-body">
+              <h4>Report mensal</h4><p>
+                Alcance, impressões, engajamento por quadro e prints dos vídeos com melhor
+                performance
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="section" style="border-bottom:none;">
+      <div class="container">
+        <div class="cta-block">
+          <div class="cta-left">
+            <p class="section-label">Próximo passo</p>
+            <h2 class="section-title" style="margin-bottom:0.6rem;">Vamos fechar?</h2>
+            <p
+              style="font-size:0.92rem; color:var(--text-muted); line-height:1.75; max-width:420px;"
+            >
+              Oferta válida até <strong style="color:var(--accent2);">20 de março de 2026</strong>.
+              Responda esse e-mail ou entre em contato pelo WhatsApp para confirmar o slot.
+            </p>
+          </div>
+          <div class="cta-right">
+            <a href="https://wa.me/55XXXXXXXXXXX" class="cta-btn" target="_blank">
+              Confirmar pelo WhatsApp ↗
+            </a>
+            <p class="cta-sub">ou responda o e-mail que acompanha essa proposta</p>
+            <div class="cta-slots">
+              <div class="slot taken"></div>
+              <div class="slot open"></div>
+              <div class="slot open"></div>
+              <span class="slot-label">1 de 3 possíveis fundadores · 2 slots restantes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <div>
+            <p class="footer-logo">🔁 l8p tech</p>
+            <p style="font-size:0.72rem;color:var(--text-dim);margin-top:0.3rem;">
+              ( loop tech ) · ConfrariaTech · 2026
+            </p>
+          </div>
+          <div class="footer-meta">
+            <p>Proposta confidencial</p>
+            <p>Patrocinador Fundador · Slot único</p>
+            <p>Válido até 20 de março de 2026</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
