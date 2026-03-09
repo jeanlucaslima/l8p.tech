@@ -921,6 +921,14 @@ import { ViewTransitions } from 'astro:transitions';
         opacity: 1;
       }
 
+      .logo-slot img.logo-invert {
+        filter: grayscale(1) invert(1);
+      }
+
+      .logo-slot:hover img.logo-invert {
+        filter: grayscale(0) invert(1);
+      }
+
       .logo-slot span {
         font-size: 0.82rem;
         color: var(--text-muted);
@@ -1336,7 +1344,7 @@ import { ViewTransitions } from 'astro:transitions';
           <a href="https://www.alura.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/alura.svg" alt="Alura" /></a>
           <a href="https://mb.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/mb.svg" alt="MB" /></a>
           <a href="https://mottu.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/mottu.png" alt="Mottu" /></a>
-          <a href="https://lerian.studio" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/lerian.png" alt="Lerian" /></a>
+          <a href="https://lerian.studio" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/lerian.png" alt="Lerian" class="logo-invert" /></a>
           <a href="https://nubank.com.br" target="_blank" rel="noopener" class="logo-slot"><span>Nu</span></a>
           <a href="https://jumpad.ai" target="_blank" rel="noopener" class="logo-slot"><span>Jumpad</span></a>
           <a href="https://www.sony.com" target="_blank" rel="noopener" class="logo-slot"><span>Sony</span></a>
