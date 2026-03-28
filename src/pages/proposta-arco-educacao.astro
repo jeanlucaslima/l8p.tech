@@ -1,0 +1,951 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+// === DATA ===
+const client = { name: 'Arco Educação' };
+const seller = {
+  name: 'Jean Lucas Lima',
+  email: 'jean@confraria.tech',
+  channel: 'l8p tech',
+  community: 'ConfrariaTech',
+  website: 'l8p.tech',
+};
+const proposal = { date: 'Março 2026', months: 6, monthlyPrice: 4500 };
+
+const items = {
+  techTalks:  { label: 'Tech Talks', price: 15_000, deliveryMonths: 3 },
+  aiTuesdays: { label: 'AI Tuesdays', pricePerMonth: 1_600, months: 6 },
+  canalVagas: { label: 'Canal de Vagas', price: 0, months: 6 },
+  eventoMaio: { label: 'Evento de Maio', priceFull: 10_000, pricePackage: 5_000 },
+};
+
+const community = { members: 1200, access: 'por indicação' };
+const channel   = { followers: 1000, postsPerWeek: 5 };
+
+const followup = { frequency: 'mensal', durationMin: 30 };
+
+// === COMPUTED ===
+const aiTuesdaysTotal = items.aiTuesdays.pricePerMonth * items.aiTuesdays.months;
+const totalFull       = items.techTalks.price + aiTuesdaysTotal + items.eventoMaio.priceFull;
+const totalPaid       = proposal.monthlyPrice * proposal.months;
+const monthlyFull     = totalFull / proposal.months;
+const discountValue   = totalFull - totalPaid;
+const discountPct     = Math.round((discountValue / totalFull) * 100);
+
+// === CURRENCY FORMATTER ===
+const fmt = (v: number) => {
+  try {
+    return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  } catch {
+    return 'R$ ' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+};
+const fmtDecimal = (v: number) => {
+  try {
+    return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
+  } catch {
+    return 'R$ ' + v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+};
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{seller.channel} x {client.name} — Proposta de Parceria</title>
+    <meta
+      name="description"
+      content={`Proposta de Parceria ${seller.channel} x ${client.name} — ${seller.community}`}
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content={`${seller.channel} x ${client.name} — Proposta de Parceria`} />
+    <meta
+      property="og:description"
+      content={`Proposta de parceria ${seller.channel} e ${client.name}`}
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <ViewTransitions />
+
+    <style is:global>
+      :root {
+        --bg: #e9e5df;
+        --surface: #efece7;
+        --surface2: #e3ded8;
+        --border: rgba(0, 0, 0, 0.08);
+        --text: #2a2520;
+        --text-muted: #524e49;
+        --text-dim: #8c8680;
+        --accent: #4b44e8;
+        --accent-glow: rgba(75, 68, 232, 0.07);
+        --accent2: #e85a1a;
+        --green: #16a34a;
+        --radius: 12px;
+        --radius-sm: 8px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 17px;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* TOPBAR */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2.5rem;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: rgba(233, 229, 223, 0.93);
+        backdrop-filter: blur(12px);
+        z-index: 100;
+      }
+
+      .topbar-logo {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.03em;
+        color: var(--text);
+      }
+
+      .topbar-badge {
+        background: rgba(75, 68, 232, 0.1);
+        border: 1px solid rgba(75, 68, 232, 0.25);
+        color: var(--accent);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        padding: 0.3rem 0.8rem;
+        border-radius: 100px;
+        text-transform: uppercase;
+      }
+
+      /* CONTAINER */
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+        width: 100%;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 5rem 0 4rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent-glow);
+        border: 1px solid rgba(108, 99, 255, 0.3);
+        border-radius: 100px;
+        padding: 0.3rem 0.9rem;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+      }
+
+      .hero-eyebrow::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .hero-title {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        margin-bottom: 1.2rem;
+        max-width: 780px;
+      }
+
+      .hero-title .accent {
+        color: var(--accent);
+      }
+      .hero-title .dim {
+        color: var(--text-muted);
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        color: var(--text-muted);
+        max-width: 560px;
+        line-height: 1.75;
+        margin-bottom: 3rem;
+      }
+
+      /* SECTION */
+      .section {
+        padding: 4rem 0;
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .section-label {
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.6rem;
+      }
+
+      .section-title {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 1.35rem;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 0.8rem;
+        line-height: 1.25;
+      }
+
+      .section-body {
+        font-size: 0.93rem;
+        color: var(--text-muted);
+        max-width: 640px;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      /* ITEM CARDS */
+      .item-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        margin-top: 2rem;
+      }
+
+      .item-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.8rem;
+        transition: transform 200ms ease, box-shadow 200ms ease;
+      }
+
+      .item-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .item-card-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--accent-glow);
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .item-card h4 {
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text);
+        margin-bottom: 0.3rem;
+      }
+
+      .item-card-audience {
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 0.8rem;
+      }
+
+      .item-card p {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      .item-card-price {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: var(--accent);
+        margin-top: 1rem;
+        display: block;
+      }
+
+      .item-card-price.free {
+        color: var(--green);
+      }
+
+      .item-card-meta {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        margin-top: 0.3rem;
+      }
+
+      /* PRICING TABLE */
+      .pricing-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-top: 1.5rem;
+      }
+
+      .pricing-table th,
+      .pricing-table td {
+        padding: 1rem 1.2rem;
+        text-align: left;
+        font-size: 0.88rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .pricing-table th {
+        background: var(--surface2);
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+      }
+
+      .pricing-table td {
+        background: var(--surface);
+        color: var(--text-muted);
+      }
+
+      .pricing-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .pricing-table .highlight-row td {
+        background: var(--accent-glow);
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .price-cell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .price-original {
+        text-decoration: line-through;
+        color: var(--text-dim);
+        font-size: 0.82rem;
+        opacity: 0;
+        transition: opacity 600ms ease;
+      }
+
+      .price-original.revealed {
+        opacity: 1;
+      }
+
+      .price-discounted {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      /* SAVINGS BADGE */
+      .savings-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(22, 163, 74, 0.1);
+        border: 1px solid rgba(22, 163, 74, 0.3);
+        color: var(--green);
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+        border-radius: 100px;
+        margin-top: 1.5rem;
+      }
+
+      .savings-badge.animate {
+        animation: badgePulse 1.5s ease-in-out;
+      }
+
+      @keyframes badgePulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow: 0 0 16px 4px rgba(22, 163, 74, 0.2);
+          transform: scale(1.04);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+          transform: scale(1);
+        }
+      }
+
+      .pricing-note {
+        font-size: 0.78rem;
+        color: var(--text-dim);
+        margin-top: 1.2rem;
+        line-height: 1.7;
+      }
+
+      /* STEPS / TIMELINE */
+      .steps {
+        margin-top: 2.5rem;
+        position: relative;
+        padding-left: 1.2rem;
+      }
+
+      .steps::before {
+        content: '';
+        position: absolute;
+        left: calc(1.2rem + 0.95rem);
+        top: 0.95rem;
+        bottom: 1rem;
+        width: 1px;
+        background: linear-gradient(to bottom, var(--accent), var(--border));
+        opacity: 0.35;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 2rem 1fr;
+        gap: 1.2rem;
+        padding-bottom: 2rem;
+        align-items: start;
+        position: relative;
+      }
+
+      .step:last-child {
+        padding-bottom: 0;
+      }
+
+      .step-num {
+        font-family: 'Geist', sans-serif;
+        font-weight: 700;
+        font-size: 0.65rem;
+        color: white;
+        background: var(--accent);
+        border-radius: 50%;
+        width: 1.9rem;
+        height: 1.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 0 0 3px var(--bg);
+      }
+
+      .step:nth-child(n + 2) .step-num {
+        background: var(--surface2);
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+
+      .step-body {
+        padding-top: 0.2rem;
+      }
+
+      .step h4 {
+        font-family: 'Geist', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text);
+        margin-bottom: 0.25rem;
+        line-height: 1.3;
+      }
+
+      .step p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 2.5rem 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-logo {
+        font-family: 'Geist', sans-serif;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: var(--text);
+        letter-spacing: -0.03em;
+      }
+
+      .footer-meta {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        text-align: right;
+        line-height: 1.8;
+      }
+
+      /* FADE-IN ANIMATION */
+      .fade-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 500ms ease, transform 500ms ease;
+      }
+
+      .fade-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero {
+        animation: fadeUp 0.5s ease both 0.05s;
+      }
+
+      /* REDUCED MOTION */
+      @media (prefers-reduced-motion: reduce) {
+        .fade-section {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+        .savings-badge.animate {
+          animation: none;
+        }
+        .item-card {
+          transition: none;
+        }
+        .price-original {
+          opacity: 1;
+          transition: none;
+        }
+        .hero-eyebrow::before {
+          animation: none;
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 700px) {
+        .topbar {
+          padding: 0.8rem 1rem;
+        }
+        .container {
+          padding: 0 1rem;
+        }
+        .hero {
+          padding: 3rem 0 2.5rem;
+        }
+        .item-cards {
+          grid-template-columns: 1fr;
+        }
+        .pricing-table th,
+        .pricing-table td {
+          padding: 0.75rem 0.8rem;
+          font-size: 0.82rem;
+        }
+        .footer-meta {
+          text-align: left;
+        }
+        .topbar-badge {
+          font-size: 0.6rem;
+          padding: 0.25rem 0.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topbar">
+      <span class="topbar-logo">🔁 l8p tech</span>
+      <span class="topbar-badge">Proposta de Parceria · Confidencial</span>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-eyebrow">{seller.community} · Proposta de Parceria · {proposal.date}</div>
+        <h1 class="hero-title">
+          {seller.channel} <span class="dim">x</span> <span class="accent">{client.name}</span>
+        </h1>
+        <p class="hero-subtitle">
+          Proposta de Parceria · {proposal.date} · Confidencial
+        </p>
+      </div>
+    </section>
+
+    <!-- 01. CONTEXTO -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">01 — Contexto</p>
+        <h2 class="section-title">Por que faz sentido</h2>
+        <p class="section-body">
+          A {client.name} tem uma história de crescimento técnico acelerado, com aquisições relevantes e parceria com a OpenAI desde 2024. Para continuar atraindo engenheiros e lideranças de alto nível, a marca empregadora precisa chegar onde esses profissionais já estão.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;">
+          O {seller.channel} e a {seller.community} cobrem esse espaço: um canal de conteúdo diário para devs e engenheiros, e uma comunidade fechada de {community.members}+ CTOs, heads de engenharia e founders com acesso {community.access}.
+        </p>
+      </div>
+    </section>
+
+    <!-- 02. O QUE ESTÁ NA MESA -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">02 — O que está na mesa</p>
+        <h2 class="section-title">Quatro entregas, um pacote</h2>
+        <p class="section-body">
+          Cada entrega atinge um público e um momento diferente. Juntas, cobrem marca empregadora, posicionamento técnico e acesso direto à comunidade.
+        </p>
+        <div class="item-cards">
+          <!-- Tech Talks -->
+          <div class="item-card">
+            <div class="item-card-icon">🎤</div>
+            <h4>{items.techTalks.label} — {seller.channel}</h4>
+            <p class="item-card-audience">Devs, engenheiros e PMs</p>
+            <p>
+              Episódio com a liderança técnica da {client.name} no canal {seller.channel}. Formato de entrevista gravada com antecedência, publicada nas redes do canal.
+            </p>
+            <span class="item-card-price">{fmt(items.techTalks.price)}</span>
+            <p class="item-card-meta">{items.techTalks.deliveryMonths} meses de entrega</p>
+          </div>
+
+          <!-- AI Tuesdays -->
+          <div class="item-card">
+            <div class="item-card-icon">🧠</div>
+            <h4>{items.aiTuesdays.label} — {seller.community}</h4>
+            <p class="item-card-audience">CTOs, heads de engenharia e founders</p>
+            <p>
+              Participação ou curadoria de uma edição do {items.aiTuesdays.label}, o encontro quinzenal da {seller.community} sobre inteligência artificial. Acesso restrito, {community.access}.
+            </p>
+            <span class="item-card-price">{fmt(items.aiTuesdays.pricePerMonth)}/mês</span>
+            <p class="item-card-meta">{items.aiTuesdays.months} meses · {fmt(aiTuesdaysTotal)} total</p>
+          </div>
+
+          <!-- Canal de Vagas -->
+          <div class="item-card">
+            <div class="item-card-icon">💼</div>
+            <h4>{items.canalVagas.label} — {seller.community}</h4>
+            <p class="item-card-audience">Talentos da comunidade</p>
+            <p>
+              Um recrutador da {client.name} com acesso para postar vagas e indicações de talentos diretamente na comunidade. Outros recrutadores de empresas de referência já participam.
+            </p>
+            <span class="item-card-price free">Incluso</span>
+            <p class="item-card-meta">{items.canalVagas.months} meses</p>
+          </div>
+
+          <!-- Evento de Maio -->
+          <div class="item-card">
+            <div class="item-card-icon">🎪</div>
+            <h4>{items.eventoMaio.label} — Download de SF</h4>
+            <p class="item-card-audience">Comunidade tech presencial</p>
+            <p>
+              Evento presencial em São Paulo com o relato do que foi visto no Vale do Silício, incluindo novidades do L8P Summit (abril, San Francisco). A {client.name} entra como patrocinadora com presença de marca num formato temático de tech.
+            </p>
+            <span class="item-card-price">{fmt(items.eventoMaio.priceFull)}</span>
+            <p class="item-card-meta">Edição única · {fmt(items.eventoMaio.pricePackage)} no pacote</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. INVESTIMENTO -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">03 — Investimento</p>
+        <h2 class="section-title">Valor cheio por item</h2>
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Duração</th>
+              <th>Valor cheio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{items.techTalks.label}</td>
+              <td>{items.techTalks.deliveryMonths} meses de entrega</td>
+              <td>{fmt(items.techTalks.price)}</td>
+            </tr>
+            <tr>
+              <td>{items.aiTuesdays.label}</td>
+              <td>{items.aiTuesdays.months} meses</td>
+              <td>{fmt(aiTuesdaysTotal)}</td>
+            </tr>
+            <tr>
+              <td>{items.canalVagas.label}</td>
+              <td>{items.canalVagas.months} meses</td>
+              <td style="color:var(--green); font-weight:600;">Incluso</td>
+            </tr>
+            <tr>
+              <td>{items.eventoMaio.label}</td>
+              <td>Edição única</td>
+              <td>{fmt(items.eventoMaio.priceFull)}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 class="section-title" style="margin-top:3rem;">Pacote completo — {proposal.months} meses</h2>
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{items.techTalks.label}</td>
+              <td>{fmt(items.techTalks.price)}</td>
+            </tr>
+            <tr>
+              <td>{items.aiTuesdays.label}</td>
+              <td>{fmt(aiTuesdaysTotal)}</td>
+            </tr>
+            <tr>
+              <td>{items.canalVagas.label}</td>
+              <td style="color:var(--green); font-weight:600;">Incluso</td>
+            </tr>
+            <tr>
+              <td>{items.eventoMaio.label} <span style="font-size:0.78rem; color:var(--text-dim);">(com desconto de pacote)</span></td>
+              <td>
+                <div class="price-cell">
+                  <span class="price-original">{fmt(items.eventoMaio.priceFull)}</span>
+                  <span class="price-discounted">{fmt(items.eventoMaio.pricePackage)}</span>
+                </div>
+              </td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Parcela mensal ({proposal.months}×)</td>
+              <td>
+                <div class="price-cell">
+                  <span class="price-original">{fmtDecimal(monthlyFull)}/mês</span>
+                  <span class="price-discounted">{fmt(proposal.monthlyPrice)} / mês</span>
+                </div>
+              </td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Total em {proposal.months} meses</td>
+              <td>
+                <div class="price-cell">
+                  <span class="price-original">{fmt(totalFull)}</span>
+                  <span class="price-discounted">{fmt(totalPaid)}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="savings-badge" data-savings>
+          Você economiza {fmt(discountValue)} ({discountPct}%)
+        </div>
+
+        <p class="pricing-note">
+          Nota Fiscal emitida mensalmente. Pagamento via PIX ou transferência bancária.<br />
+          O primeiro mês é faturado após o início das entregas.
+        </p>
+      </div>
+    </section>
+
+    <!-- 04. ACOMPANHAMENTO -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">04 — Acompanhamento</p>
+        <h2 class="section-title">Report e alinhamento</h2>
+        <p class="section-body">
+          Call {followup.frequency} de {followup.durationMin} minutos com a equipe da {client.name} para report de métricas e alinhamento editorial do mês seguinte: temas, datas de gravação e próximas edições do {items.aiTuesdays.label}.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;">
+          O report cobre alcance, impressões e engajamento por vídeo, resultado das postagens no canal de vagas e próximos passos por entrega.
+        </p>
+      </div>
+    </section>
+
+    <!-- 05. PRÓXIMOS PASSOS -->
+    <section class="section fade-section" style="border-bottom:none;">
+      <div class="container">
+        <p class="section-label">05 — Próximos passos</p>
+        <h2 class="section-title">Do acordo ao início</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h4>Briefing de marca empregadora</h4>
+              <p>
+                Quais perfis técnicos a {client.name} quer atrair? Tom, posicionamento, cases que querem destacar.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h4>Cronograma de entregas</h4>
+              <p>
+                {items.techTalks.label}: data de gravação com a liderança. {items.aiTuesdays.label}: próxima edição disponível. {items.canalVagas.label}: acesso imediato.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h4>Contrato e início</h4>
+              <p>
+                Contrato único de {proposal.months} meses. Primeiro faturamento após início das entregas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <div>
+            <p class="footer-logo">🔁 l8p tech</p>
+            <p style="font-size:0.72rem;color:var(--text-dim);margin-top:0.3rem;">
+              ( loop tech ) · {seller.community} · 2026
+            </p>
+          </div>
+          <div class="footer-meta">
+            <p>{seller.email} · {seller.website}</p>
+            <p>Proposta confidencial · {proposal.date}</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Fade-in sections
+        const fadeSections = document.querySelectorAll('.fade-section');
+        if (prefersReduced) {
+          fadeSections.forEach(el => el.classList.add('visible'));
+        } else {
+          const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.1 });
+          fadeSections.forEach(el => fadeObserver.observe(el));
+        }
+
+        // Savings badge pulse
+        const badge = document.querySelector('[data-savings]');
+        if (badge && !prefersReduced) {
+          const badgeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                badgeObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.5 });
+          badgeObserver.observe(badge);
+        }
+
+        // Strikethrough price reveal
+        const originals = document.querySelectorAll('.price-original');
+        if (prefersReduced) {
+          originals.forEach(el => el.classList.add('revealed'));
+        } else {
+          const priceObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                setTimeout(() => {
+                  entry.target.classList.add('revealed');
+                }, 200);
+                priceObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.3 });
+          originals.forEach(el => priceObserver.observe(el));
+        }
+      });
+    </script>
+  </body>
+</html>
