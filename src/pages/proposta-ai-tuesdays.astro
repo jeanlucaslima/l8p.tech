@@ -58,7 +58,7 @@ const episodes = [
   { number: '03', date: '07/04', tema: '[Tema do episódio]', speaker: 'Thiago Yukio', company: 'espresso labs', companyUrl: '', linkedin: '', status: 'confirmado' },
   { number: '04', date: '28/04', tema: '[Tema do episódio]', speaker: 'Daniel Polistchuck', company: 'CG Labs', companyUrl: '', linkedin: '', status: 'confirmado' },
   { number: '05', date: '05/05', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
-  { number: '06', date: '19/05', tema: '[Tema do episódio]', speaker: 'Fred Amaral', company: 'Lerian', companyUrl: 'https://lerian.studio', companyLogo: '/logos/lerian.png', linkedin: '', status: 'confirmado' },
+  { number: '06', date: '19/05', tema: '[Tema do episódio]', speaker: 'Fred Amaral', company: 'Lerian', companyUrl: 'https://lerian.studio', companyLogo: '/logos/lerian.png', companyLogoInvert: true, linkedin: '', status: 'confirmado' },
   { number: '07', date: '02/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
   { number: '08', date: '16/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
   { number: '09', date: '30/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
@@ -197,6 +197,27 @@ const fmt = (v: number) => {
         margin: 0 auto;
         padding: 0 2.5rem;
         width: 100%;
+      }
+
+      /* CELEBRATION BANNER */
+      .celebration-banner {
+        background: var(--accent);
+        padding: 0.8rem 0;
+        text-align: center;
+      }
+
+      .celebration-text {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: white;
+        letter-spacing: 0.01em;
+      }
+
+      .celebration-text a {
+        color: white;
+        text-decoration: underline;
+        font-weight: 700;
       }
 
       /* HERO */
@@ -577,6 +598,10 @@ const fmt = (v: number) => {
         filter: grayscale(1);
       }
 
+      .schedule-table .ep-company-logo.logo-invert {
+        filter: invert(1);
+      }
+
       .schedule-table .ep-company {
         font-size: 0.75rem;
         color: var(--text-dim);
@@ -943,6 +968,15 @@ const fmt = (v: number) => {
       </div>
     </nav>
 
+    <!-- CELEBRATION BANNER -->
+    <div class="celebration-banner">
+      <div class="container">
+        <p class="celebration-text">
+          🎉 A <a href="https://lerian.studio" target="_blank" rel="noopener">Lerian</a> é a primeira empresa Destaque do {program.name}! 🎉
+        </p>
+      </div>
+    </div>
+
     <!-- HERO -->
     <section class="hero">
       <div class="container">
@@ -1052,7 +1086,7 @@ const fmt = (v: number) => {
             <div class="item-card-icon">⭐</div>
             <h4>{tiers.destaque.label}</h4>
             <p class="item-card-tagline">{tiers.destaque.tagline}</p>
-            <p class="item-card-audience">Apenas {tiers.destaque.maxSlots} slots por ano</p>
+            <p class="item-card-audience">1 de {tiers.destaque.maxSlots} slots preenchidos — resta 1 vaga</p>
             <ul>
               <li>Menção individual pelo host no início de todos os episódios</li>
               <li>Logo em posição de destaque nos materiais (acima dos apoiadores)</li>
@@ -1158,7 +1192,7 @@ const fmt = (v: number) => {
             <tr>
               <td>Slots disponíveis</td>
               <td>{tiers.apoiador.maxSlots} por ano</td>
-              <td>{tiers.destaque.maxSlots} por ano</td>
+              <td>1 de {tiers.destaque.maxSlots} preenchidos</td>
               <td>{tiers.parceiro.slotsPerEpisode} por episódio</td>
             </tr>
             <tr class="highlight-row">
@@ -1194,7 +1228,7 @@ const fmt = (v: number) => {
                 <td class={ep.status === 'confirmado' ? 'confirmed' : ''}>
                   {ep.speaker ? (
                     <span class="ep-speaker-cell">
-                      {ep.companyLogo && <img src={ep.companyLogo} alt={ep.company} class="ep-company-logo" />}
+                      {ep.companyLogo && <img src={ep.companyLogo} alt={ep.company} class={`ep-company-logo${ep.companyLogoInvert ? ' logo-invert' : ''}`} />}
                       <span>
                         {ep.linkedin ? <a href={ep.linkedin} target="_blank" rel="noopener">{ep.speaker}</a> : ep.speaker}
                         {ep.company && (
