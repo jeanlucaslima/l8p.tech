@@ -1,0 +1,1279 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+// === DATA ===
+const contact = {
+  name: 'Jean Lucas',
+  email: 'jean@confraria.tech',
+  company: 'ConfrariaTech LTDA',
+  cnpj: '54.811.200/0001-53',
+  whatsapp: '+5511958493835',
+};
+
+const program = {
+  name: 'AI Tuesdays',
+  frequency: 'quinzenal',
+  dayOfWeek: 'terça',
+  episodesPerYear: 20,
+  maxAttendeesPerSession: 30,
+  pauseMonths: ['janeiro', 'julho'],
+};
+
+const community = {
+  name: 'ConfrariaTech',
+  members: 1200,
+  access: 'por indicação',
+  since: 2015,
+};
+
+const tiers = {
+  apoiador: {
+    label: 'Apoiador',
+    tagline: 'Sua marca entre as empresas que tornam o AI Tuesdays possível',
+    maxSlots: 10,
+    monthlyPrice: 1000,
+    annualPrice: 12000,
+  },
+  destaque: {
+    label: 'Destaque',
+    tagline: 'Presença individual, exclusividade de categoria e um episódio que vai até você',
+    maxSlots: 2,
+    monthlyPrice: 3000,
+    annualPrice: 36000,
+  },
+  parceiro: {
+    label: 'Parceiro de Episódio',
+    tagline: 'Sua empresa dentro da conversa, não interrompendo ela',
+    pricePerEpisode: 6000,
+    slotsPerEpisode: 1,
+  },
+};
+
+const proposal = { date: 'Março 2026' };
+
+// Episode schedule
+const episodes = [
+  { number: '01', date: '10/03', tema: '[Edição passada]', speaker: 'Northon Torga', company: 'infinite cloud', companyUrl: '', linkedin: '', status: 'realizado' },
+  { number: '02', date: '24/03', tema: '[Edição passada]', speaker: 'Arquimedes Ferreira', company: 'Alboom', companyUrl: '', linkedin: '', status: 'realizado' },
+  { number: '03', date: '07/04', tema: '[Tema do episódio]', speaker: 'Thiago Yukio', company: 'espresso labs', companyUrl: '', linkedin: '', status: 'confirmado' },
+  { number: '04', date: '28/04', tema: '[Tema do episódio]', speaker: 'Daniel Polistchuck', company: 'CG Labs', companyUrl: '', linkedin: '', status: 'confirmado' },
+  { number: '05', date: '05/05', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
+  { number: '06', date: '19/05', tema: '[Tema do episódio]', speaker: 'Fred Amaral', company: 'Lerian', companyUrl: 'https://lerian.studio', linkedin: '', status: 'confirmado' },
+  { number: '07', date: '02/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
+  { number: '08', date: '16/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
+  { number: '09', date: '30/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
+  { number: '10', date: '14/07', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
+  { number: '11', date: '28/07', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
+];
+
+// === CURRENCY FORMATTER ===
+const fmt = (v: number) => {
+  try {
+    return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  } catch {
+    return 'R$ ' + v.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+};
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{program.name} — Proposta de Patrocínio · {community.name}</title>
+    <meta
+      name="description"
+      content={`Proposta de Patrocínio ${program.name} — ${community.name}`}
+    />
+    <link rel="icon" type="image/png" href="/confraria-favicon-proposal.png" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content={`${program.name} — Proposta de Patrocínio`} />
+    <meta
+      property="og:description"
+      content={`Proposta de patrocínio ${program.name} — ${community.name}`}
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <ViewTransitions />
+
+    <style is:global>
+      :root {
+        --bg: #e9e5df;
+        --surface: #efece7;
+        --surface2: #e3ded8;
+        --border: rgba(0, 0, 0, 0.08);
+        --text: #2a2520;
+        --text-muted: #524e49;
+        --text-dim: #8c8680;
+        --accent: #E8730A;
+        --accent-glow: rgba(232, 115, 10, 0.07);
+        --accent2: #e85a1a;
+        --green: #16a34a;
+        --radius: 12px;
+        --radius-sm: 8px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        font-size: 17px;
+        overflow-x: hidden;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Barlow', sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        padding-top: 3.5rem;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* TOPBAR */
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border);
+        background: rgba(233, 229, 223, 0.65);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 100;
+      }
+
+      .topbar-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .topbar-logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .topbar-logo-img {
+        height: 20px;
+        filter: invert(1);
+        opacity: 0.85;
+      }
+
+      .topbar-badge {
+        background: rgba(232, 115, 10, 0.1);
+        border: 1px solid rgba(232, 115, 10, 0.25);
+        color: var(--accent);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        padding: 0.3rem 0.8rem;
+        border-radius: 100px;
+        text-transform: uppercase;
+      }
+
+      /* CONTAINER */
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+        width: 100%;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 5rem 0 4rem;
+        border-bottom: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent-glow);
+        border: 1px solid rgba(232, 115, 10, 0.3);
+        border-radius: 100px;
+        padding: 0.3rem 0.9rem;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+      }
+
+      .hero-eyebrow::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .hero-title {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        margin-bottom: 1.2rem;
+        max-width: 780px;
+      }
+
+      .hero-title .accent {
+        color: var(--accent);
+      }
+      .hero-title .dim {
+        color: var(--text-muted);
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        color: var(--text-muted);
+        max-width: 560px;
+        line-height: 1.75;
+        margin-bottom: 3rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        max-width: 640px;
+      }
+
+      .hero-stat {
+        background: var(--surface);
+        padding: 1.2rem 1rem;
+        text-align: center;
+      }
+
+      .hero-stat-value {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 800;
+        font-size: 1.3rem;
+        color: var(--accent);
+        letter-spacing: -0.02em;
+      }
+
+      .hero-stat-label {
+        font-size: 0.68rem;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-top: 0.2rem;
+      }
+
+      /* SECTION */
+      .section {
+        padding: 4rem 0;
+        border-bottom: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .section-label {
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.6rem;
+      }
+
+      .section-title {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 700;
+        font-size: 1.35rem;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 0.8rem;
+        line-height: 1.25;
+      }
+
+      .section-body {
+        font-size: 0.93rem;
+        color: var(--text-muted);
+        max-width: 640px;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      .section-body strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* ITEM CARDS */
+      .item-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        margin-top: 2rem;
+      }
+
+      .item-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.8rem;
+        transition: transform 200ms ease, box-shadow 200ms ease;
+      }
+
+      .item-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .item-card.featured {
+        border-color: rgba(232, 115, 10, 0.3);
+        background: linear-gradient(135deg, var(--surface) 0%, var(--accent-glow) 100%);
+      }
+
+      .item-card.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .item-card-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--accent-glow);
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .item-card h4 {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text);
+        margin-bottom: 0.3rem;
+      }
+
+      .item-card-tagline {
+        font-size: 0.78rem;
+        font-style: italic;
+        color: var(--text-dim);
+        margin-bottom: 0.8rem;
+      }
+
+      .item-card-audience {
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 0.8rem;
+      }
+
+      .item-card p {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      .item-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0.8rem 0 0;
+      }
+
+      .item-card li {
+        font-size: 0.83rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        padding-left: 1.2rem;
+        position: relative;
+        margin-bottom: 0.3rem;
+      }
+
+      .item-card li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .item-card-price {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: var(--accent);
+        margin-top: 1rem;
+        display: block;
+      }
+
+      .item-card-meta {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        margin-top: 0.3rem;
+      }
+
+      /* PRICING TABLE */
+      .pricing-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-top: 1.5rem;
+      }
+
+      .pricing-table th,
+      .pricing-table td {
+        padding: 1rem 1.2rem;
+        text-align: left;
+        font-size: 0.88rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .pricing-table th {
+        background: var(--surface2);
+        font-family: 'Barlow', sans-serif;
+        font-weight: 600;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+      }
+
+      .pricing-table td {
+        background: var(--surface);
+        color: var(--text-muted);
+      }
+
+      .pricing-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .pricing-table .highlight-row td {
+        background: var(--accent-glow);
+        font-family: 'Barlow', sans-serif;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .pricing-table .check {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .pricing-table .dash {
+        color: var(--text-dim);
+      }
+
+      /* SCHEDULE TABLE */
+      .schedule-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-top: 1.5rem;
+        font-size: 0.82rem;
+      }
+
+      .schedule-table th,
+      .schedule-table td {
+        padding: 0.7rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .schedule-table th {
+        background: var(--surface2);
+        font-family: 'Barlow', sans-serif;
+        font-weight: 600;
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-dim);
+      }
+
+      .schedule-table td {
+        background: var(--surface);
+        color: var(--text-muted);
+      }
+
+      .schedule-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .schedule-table .ep-num {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 700;
+        color: var(--text);
+        font-size: 0.78rem;
+      }
+
+      .schedule-table .available {
+        color: var(--green);
+        font-weight: 500;
+        font-size: 0.78rem;
+      }
+
+      .schedule-table .ep-company {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+      }
+
+      .schedule-table .ep-company a {
+        color: var(--text-dim);
+        text-decoration: underline;
+      }
+
+      .schedule-table .confirmed {
+        color: var(--accent);
+        font-weight: 500;
+        font-size: 0.78rem;
+      }
+
+      .schedule-table .past td {
+        opacity: 0.5;
+      }
+
+      /* LOGOS GRID */
+      .logos-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+
+      .logo-slot {
+        background: var(--surface);
+        aspect-ratio: 2/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        transition: background 200ms ease;
+      }
+
+      .logo-slot:hover {
+        background: var(--surface2);
+      }
+
+      .logo-slot img {
+        max-width: 100%;
+        max-height: 32px;
+        object-fit: contain;
+        filter: grayscale(1);
+        opacity: 0.6;
+        transition: filter 200ms ease, opacity 200ms ease;
+      }
+
+      .logo-slot:hover img {
+        filter: grayscale(0);
+        opacity: 1;
+      }
+
+      .logo-slot img.logo-invert {
+        filter: grayscale(1) invert(1);
+      }
+
+      .logo-slot:hover img.logo-invert {
+        filter: grayscale(0) invert(1);
+      }
+
+      .logo-slot span {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        font-weight: 500;
+        opacity: 0.6;
+        transition: opacity 200ms ease;
+      }
+
+      .logo-slot:hover span {
+        opacity: 1;
+      }
+
+      /* AUDIENCE LIST */
+      .audience-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0 0;
+      }
+
+      .audience-list li {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        padding-left: 1.4rem;
+        position: relative;
+      }
+
+      .audience-list li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* STEPS / TIMELINE */
+      .steps {
+        margin-top: 2.5rem;
+        position: relative;
+        padding-left: 1.2rem;
+      }
+
+      .steps::before {
+        content: '';
+        position: absolute;
+        left: calc(1.2rem + 0.95rem);
+        top: 0.95rem;
+        bottom: 1rem;
+        width: 1px;
+        background: linear-gradient(to bottom, var(--accent), var(--border));
+        opacity: 0.35;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 2rem 1fr;
+        gap: 1.2rem;
+        padding-bottom: 2rem;
+        align-items: start;
+        position: relative;
+      }
+
+      .step:last-child {
+        padding-bottom: 0;
+      }
+
+      .step-num {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 700;
+        font-size: 0.65rem;
+        color: white;
+        background: var(--accent);
+        border-radius: 50%;
+        width: 1.9rem;
+        height: 1.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 0 0 3px var(--bg);
+      }
+
+      .step:nth-child(n + 2) .step-num {
+        background: var(--surface2);
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+
+      .step-body {
+        padding-top: 0.2rem;
+      }
+
+      .step h4 {
+        font-family: 'Barlow', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text);
+        margin-bottom: 0.25rem;
+        line-height: 1.3;
+      }
+
+      .step p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+      }
+
+      /* SCHEDULE NOTE */
+      .schedule-note {
+        font-size: 0.78rem;
+        color: var(--text-dim);
+        margin-top: 1.2rem;
+        line-height: 1.7;
+        font-style: italic;
+      }
+
+      /* SAMPLE CALL */
+      .sample-call {
+        margin-top: 2rem;
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        max-width: 480px;
+      }
+
+      .sample-call img {
+        width: 100%;
+        display: block;
+      }
+
+      .sample-call-caption {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        padding: 0.8rem 1rem;
+        background: var(--surface);
+        line-height: 1.5;
+        font-style: italic;
+      }
+
+      /* WHATSAPP BUTTON */
+      .whatsapp-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-top: 0.8rem;
+        padding: 0.6rem 1.4rem;
+        background: #25D366;
+        color: white;
+        font-weight: 600;
+        font-size: 0.85rem;
+        border-radius: 100px;
+        text-decoration: none;
+        transition: background 200ms ease, transform 200ms ease;
+      }
+
+      .whatsapp-btn:hover {
+        background: #1ebe5d;
+        transform: translateY(-2px);
+        text-decoration: none;
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 2.5rem 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-logo-img {
+        height: 18px;
+        filter: invert(1);
+        opacity: 0.7;
+      }
+
+      .footer-meta {
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        text-align: right;
+        line-height: 1.8;
+      }
+
+      /* FADE-IN ANIMATION */
+      .fade-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 500ms ease, transform 500ms ease;
+      }
+
+      .fade-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero {
+        animation: fadeUp 0.5s ease both 0.05s;
+      }
+
+      /* REDUCED MOTION */
+      @media (prefers-reduced-motion: reduce) {
+        .fade-section {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .hero {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+        .item-card {
+          transition: none;
+        }
+        .hero-eyebrow::before {
+          animation: none;
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 700px) {
+        .topbar {
+          padding: 0.8rem 1rem;
+        }
+        .container {
+          padding: 0 1rem;
+        }
+        .hero {
+          padding: 3rem 0 2.5rem;
+        }
+        .hero-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .item-cards {
+          grid-template-columns: 1fr;
+        }
+        .pricing-table th,
+        .pricing-table td {
+          padding: 0.75rem 0.8rem;
+          font-size: 0.82rem;
+        }
+        .schedule-table th,
+        .schedule-table td {
+          padding: 0.5rem 0.6rem;
+          font-size: 0.75rem;
+        }
+        .logos-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-meta {
+          text-align: left;
+        }
+        .topbar-badge {
+          font-size: 0.6rem;
+          padding: 0.25rem 0.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topbar">
+      <div class="container topbar-inner">
+        <span class="topbar-logo"><img src="/confraria.svg" alt={community.name} class="topbar-logo-img" /></span>
+        <span class="topbar-badge">Proposta de Patrocínio · Confidencial</span>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-eyebrow">{community.name} · Proposta de Parceria · {proposal.date}</div>
+        <h1 class="hero-title">
+          Patrocínio <span class="accent">{program.name}</span>
+        </h1>
+        <p class="hero-subtitle">
+          Uma comunidade de líderes de tecnologia aprendendo IA juntos.
+        </p>
+      </div>
+    </section>
+
+    <!-- 01. O QUE É -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">01 — O que é</p>
+        <h2 class="section-title">O que é o {program.name}</h2>
+        <p class="section-body">
+          {program.name} é o encontro {program.frequency} da {community.name} sobre inteligência artificial aplicada — restrito, {community.access}, para CTOs, heads de engenharia e founders.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;">
+          Não é um webinar aberto. É uma conversa entre as pessoas que decidem a adoção de tecnologia nas empresas brasileiras.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;">
+          Cada edição reúne até {program.maxAttendeesPerSession} líderes técnicos ao vivo. As sessões são gravadas e distribuídas para a comunidade de {community.members}+ membros da {community.name} — uma das maiores e mais antigas comunidades de liderança técnica do Brasil, ativa desde {community.since}.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;">
+          O programa acontece {program.episodesPerYear} vezes por ano, toda {program.dayOfWeek} {program.frequency}, com pausa em {program.pauseMonths.join(' e ')}.
+        </p>
+        <div class="sample-call">
+          <img src="/sample-call.jpeg" alt={`Exemplo de edição do ${program.name} — com Arquimedes Ferreira da Alboom`} />
+          <p class="sample-call-caption">Exemplo: {program.name} #2 com Arquimedes Ferreira da Alboom — aqui o logo do patrocinador aparece em destaque.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. POR QUE PATROCINAR -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">02 — Por que patrocinar</p>
+        <h2 class="section-title">Acesso direto a quem decide</h2>
+        <p class="section-body">
+          Chegar até um CTO qualificado custa tempo e dinheiro. SDR, outbound, eventos genéricos — o esforço é alto e a atenção é baixa.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;">
+          No {program.name}, sua empresa fala diretamente para quem decide: em contexto técnico, em ambiente de confiança, sem ruído.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;">
+          Um CTO que conhece sua empresa vale mais do que mil impressões em banner. Aqui você constrói essa relação — ao longo do ano, não em um único evento.
+        </p>
+        <p class="section-body" style="margin-top:-0.5rem;"><strong>O público:</strong></p>
+        <ul class="audience-list">
+          <li>CTOs, VPs de Engenharia e heads técnicos</li>
+          <li>Founders com perfil técnico</li>
+          <li>Membros {community.access} — sem inscrição aberta</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03. QUEM JÁ FAZ PARTE -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">03 — Quem já faz parte</p>
+        <h2 class="section-title">Empresas presentes na comunidade</h2>
+        <div class="logos-grid">
+          <a href="https://www.alura.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/alura.svg" alt="Alura" /></a>
+          <a href="https://mb.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/mb.svg" alt="MB" /></a>
+          <a href="https://mottu.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/mottu.png" alt="Mottu" /></a>
+          <a href="https://lerian.studio" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/lerian.png" alt="Lerian" class="logo-invert" /></a>
+          <a href="https://nubank.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/nubank.svg" alt="Nubank" /></a>
+          <a href="https://jumpad.ai" target="_blank" rel="noopener" class="logo-slot"><span>Jumpad</span></a>
+          <a href="https://www.sony.com" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/sony.png" alt="Sony" /></a>
+          <a href="https://www.clickbus.com.br" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/clickbus.svg" alt="ClickBus" /></a>
+          <a href="https://elven.works" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/elven.png" alt="Elven Works" /></a>
+          <a href="https://wildlife.com" target="_blank" rel="noopener" class="logo-slot"><img src="/logos/wildlife.svg" alt="Wildlife" /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. MODELO DE PATROCÍNIO -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">04 — Modelo de patrocínio</p>
+        <h2 class="section-title">Cotas anuais, cobradas mensalmente</h2>
+        <p class="section-body">
+          Patrocínios são anuais, cobrados mensalmente. O {program.name} funciona com um modelo de cotas — empresas que acreditam no programa e viabilizam que ele aconteça. Cada cota tem um nível de presença e visibilidade diferente.
+        </p>
+        <div class="item-cards">
+          <!-- Apoiador -->
+          <div class="item-card">
+            <div class="item-card-icon">🤝</div>
+            <h4>{tiers.apoiador.label}</h4>
+            <p class="item-card-tagline">{tiers.apoiador.tagline}</p>
+            <p class="item-card-audience">Máximo {tiers.apoiador.maxSlots} apoiadores por ano</p>
+            <ul>
+              <li>Logo nos materiais do ano (convites, posts, vídeos)</li>
+              <li>Crédito coletivo de abertura em todos os episódios: <em>"{program.name} é apoiado por [empresas]"</em></li>
+              <li>Acesso aos vídeos editados para distribuição interna no seu time</li>
+            </ul>
+            <span class="item-card-price">{fmt(tiers.apoiador.monthlyPrice)}/mês</span>
+            <p class="item-card-meta">{fmt(tiers.apoiador.annualPrice)}/ano</p>
+          </div>
+
+          <!-- Destaque -->
+          <div class="item-card featured">
+            <div class="item-card-icon">⭐</div>
+            <h4>{tiers.destaque.label}</h4>
+            <p class="item-card-tagline">{tiers.destaque.tagline}</p>
+            <p class="item-card-audience">Apenas {tiers.destaque.maxSlots} slots por ano</p>
+            <ul>
+              <li>Menção individual pelo host no início de todos os episódios</li>
+              <li>Logo em posição de destaque nos materiais (acima dos apoiadores)</li>
+              <li>1 apresentação breve (30s) por semestre — alguém da empresa se apresenta diretamente para a sala</li>
+              <li>Exclusividade de categoria — nenhum concorrente direto no mesmo tier</li>
+              <li>1 episódio híbrido por ano — a {community.name} leva o {program.name} para o escritório da sua empresa</li>
+              <li>Acesso aos vídeos editados para distribuição interna</li>
+            </ul>
+            <span class="item-card-price">{fmt(tiers.destaque.monthlyPrice)}/mês</span>
+            <p class="item-card-meta">{fmt(tiers.destaque.annualPrice)}/ano</p>
+          </div>
+
+          <!-- Parceiro de Episódio -->
+          <div class="item-card full-width">
+            <div class="item-card-icon">🎙️</div>
+            <h4>{tiers.parceiro.label}</h4>
+            <p class="item-card-tagline">{tiers.parceiro.tagline}</p>
+            <p class="item-card-audience">Contratado por episódio, avulso</p>
+            <p>
+              A empresa escolhe o tema do episódio e traz um representante como host convidado — alguém que participa da conversa com os CTOs como par, não como anunciante. Pode ser online ou híbrido no espaço da empresa.
+            </p>
+            <ul>
+              <li>Curadoria do tema do episódio em conjunto com a {community.name}</li>
+              <li>Um representante da empresa como host convidado na sessão</li>
+              <li>Menção individual pelo host + logo em destaque no episódio</li>
+              <li>Acesso ao vídeo editado para uso da empresa</li>
+            </ul>
+            <span class="item-card-price">{fmt(tiers.parceiro.pricePerEpisode)}/episódio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. COMPARATIVO -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">05 — Comparativo</p>
+        <h2 class="section-title">O que cada cota inclui</h2>
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>{tiers.apoiador.label}</th>
+              <th>{tiers.destaque.label}</th>
+              <th>{tiers.parceiro.label}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Logo nos materiais</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Crédito coletivo de abertura</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">—</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td>Menção individual pelo host</td>
+              <td class="dash">—</td>
+              <td>todos os eps</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Apresentação breve (30s)</td>
+              <td class="dash">—</td>
+              <td>1 por semestre</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td>Curadoria do tema</td>
+              <td class="dash">—</td>
+              <td class="dash">—</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Host convidado na sessão</td>
+              <td class="dash">—</td>
+              <td class="dash">—</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Episódio híbrido</td>
+              <td class="dash">—</td>
+              <td>1 por ano</td>
+              <td>opcional</td>
+            </tr>
+            <tr>
+              <td>Exclusividade de categoria</td>
+              <td class="dash">—</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td>Vídeo editado para o time</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Slots disponíveis</td>
+              <td>{tiers.apoiador.maxSlots} por ano</td>
+              <td>{tiers.destaque.maxSlots} por ano</td>
+              <td>{tiers.parceiro.slotsPerEpisode} por episódio</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>Investimento</td>
+              <td>{fmt(tiers.apoiador.monthlyPrice)}/mês</td>
+              <td>{fmt(tiers.destaque.monthlyPrice)}/mês</td>
+              <td>{fmt(tiers.parceiro.pricePerEpisode)}/episódio</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 06. GRADE DE EPISÓDIOS -->
+    <section class="section fade-section">
+      <div class="container">
+        <p class="section-label">06 — Grade de episódios</p>
+        <h2 class="section-title">Os episódios acontecem toda {program.dayOfWeek} {program.frequency}, {program.episodesPerYear} vezes por ano</h2>
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Data</th>
+              <th>Tema</th>
+              <th>Convidado / Parceiro</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {episodes.map((ep) => (
+              <tr class={ep.status === 'realizado' ? 'past' : ''}>
+                <td class="ep-num">{ep.number}</td>
+                <td>{ep.date || '—'}</td>
+                <td>{ep.tema}</td>
+                <td class={ep.status === 'confirmado' ? 'confirmed' : ''}>
+                  {ep.speaker ? (
+                    <span>
+                      {ep.linkedin ? <a href={ep.linkedin} target="_blank" rel="noopener">{ep.speaker}</a> : ep.speaker}
+                      {ep.company && (
+                        <span class="ep-company"> — {ep.companyUrl ? <a href={ep.companyUrl} target="_blank" rel="noopener">{ep.company}</a> : ep.company}</span>
+                      )}
+                    </span>
+                  ) : '—'}
+                </td>
+                <td class={ep.status === 'disponível' ? 'available' : ep.status === 'confirmado' ? 'confirmed' : ''}>{ep.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="schedule-note">
+          Apoiadores entram na grade completa. Destaques e Parceiros de Episódio são reservados por data, sujeito à disponibilidade.
+        </p>
+        <p class="schedule-note" style="margin-top:0.5rem;">
+          Com o seu apoio, os episódios já gravados também podem ser editados e publicados para a comunidade.
+        </p>
+      </div>
+    </section>
+
+    <!-- 07. PRÓXIMOS PASSOS -->
+    <section class="section fade-section" style="border-bottom:none;">
+      <div class="container">
+        <p class="section-label">07 — Próximos passos</p>
+        <h2 class="section-title">Reserve sua cota</h2>
+        <p class="section-body">
+          Para reservar sua cota ou conversar sobre o formato ideal para seus objetivos:
+        </p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h4>Escolha sua cota</h4>
+              <p>
+                Apoiador, Destaque ou Parceiro de Episódio — cada formato atende um objetivo diferente.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h4>Converse com o Jean</h4>
+              <p>
+                <a href={`mailto:${contact.email}`}>{contact.email}</a> — alinhamos o formato, datas e objetivos.
+              </p>
+              <a
+                href={`https://wa.me/${contact.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent('Quero patrocinar o AI Tuesdays da Confraria')}`}
+                target="_blank"
+                rel="noopener"
+                class="whatsapp-btn"
+              >
+                WhatsApp →
+              </a>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h4>Contrato e início</h4>
+              <p>
+                Nota fiscal emitida mensalmente pela {contact.company}. Início na próxima edição disponível.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <div>
+            <p class="footer-logo"><img src="/confraria.svg" alt={community.name} class="footer-logo-img" /></p>
+            <p style="font-size:0.72rem;color:var(--text-dim);margin-top:0.3rem;">
+              {community.name} — comunidade de líderes de tecnologia desde {community.since}
+            </p>
+          </div>
+          <div class="footer-meta">
+            <p>{contact.email}</p>
+            <p>Proposta confidencial · {proposal.date}</p>
+            <p>{contact.company} · CNPJ {contact.cnpj}</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Fade-in sections
+        const fadeSections = document.querySelectorAll('.fade-section');
+        if (prefersReduced) {
+          fadeSections.forEach(el => el.classList.add('visible'));
+        } else {
+          const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.1 });
+          fadeSections.forEach(el => fadeObserver.observe(el));
+        }
+      });
+    </script>
+  </body>
+</html>
