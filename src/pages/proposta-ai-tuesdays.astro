@@ -632,25 +632,47 @@ const fmt = (v: number) => {
         gap: 0.5rem;
       }
 
+      .schedule-table .ep-company-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        text-decoration: none;
+        color: var(--text-dim);
+      }
+
+      .schedule-table .ep-company-link:hover {
+        text-decoration: none;
+        opacity: 1;
+      }
+
       .schedule-table .ep-company-logo {
-        height: 18px;
+        height: 16px;
         width: auto;
         opacity: 0.7;
-        filter: grayscale(1);
+      }
+
+      .schedule-table .ep-company-link:hover .ep-company-logo {
+        opacity: 1;
       }
 
       .schedule-table .ep-company-logo.logo-invert {
         filter: invert(1);
       }
 
-      .schedule-table .ep-company {
+      .schedule-table .ep-company-name {
         font-size: 0.75rem;
         color: var(--text-dim);
       }
 
-      .schedule-table .ep-company a {
+      .schedule-table .ep-outgoing {
+        font-size: 0.7rem;
         color: var(--text-dim);
-        text-decoration: underline;
+        opacity: 0.6;
+      }
+
+      .schedule-table .ep-company-link:hover .ep-outgoing {
+        opacity: 1;
+        color: var(--accent);
       }
 
       .schedule-table .confirmed {
@@ -1272,13 +1294,18 @@ const fmt = (v: number) => {
                 <td class={ep.status === 'confirmado' ? 'confirmed' : ''}>
                   {ep.speaker ? (
                     <span class="ep-speaker-cell">
-                      {ep.companyLogo && <img src={ep.companyLogo} alt={ep.company} class={`ep-company-logo${ep.companyLogoInvert ? ' logo-invert' : ''}`} />}
-                      <span>
-                        {ep.linkedin ? <a href={ep.linkedin} target="_blank" rel="noopener">{ep.speaker}</a> : ep.speaker}
-                        {ep.company && (
-                          <span class="ep-company"> — {ep.companyUrl ? <a href={ep.companyUrl} target="_blank" rel="noopener">{ep.company}</a> : ep.company}</span>
-                        )}
-                      </span>
+                      <span>{ep.linkedin ? <a href={ep.linkedin} target="_blank" rel="noopener">{ep.speaker}</a> : ep.speaker}</span>
+                      {ep.companyUrl ? (
+                        <a href={ep.companyUrl} target="_blank" rel="noopener" class="ep-company-link">
+                          {ep.companyLogo
+                            ? <img src={ep.companyLogo} alt={ep.company} class={`ep-company-logo${ep.companyLogoInvert ? ' logo-invert' : ''}`} />
+                            : <span class="ep-company-name">{ep.company}</span>
+                          }
+                          <span class="ep-outgoing">↗</span>
+                        </a>
+                      ) : ep.company ? (
+                        <span class="ep-company-name">{ep.company}</span>
+                      ) : null}
                     </span>
                   ) : '—'}
                 </td>
