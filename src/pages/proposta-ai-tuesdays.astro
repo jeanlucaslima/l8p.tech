@@ -51,6 +51,14 @@ const tiers = {
 
 const proposal = { date: 'Março 2026' };
 
+const sponsorBanner = {
+  enabled: false,
+  name: 'Lerian',
+  url: 'https://lerian.studio',
+  logo: '/logos/lerian.png',
+  tier: 'Destaque',
+};
+
 // Episode schedule
 const episodes = [
   { number: '01', date: '10/03', tema: '[Edição passada]', speaker: 'Northon Torga', company: 'infinite cloud', companyUrl: '', linkedin: '', status: 'realizado' },
@@ -1031,17 +1039,19 @@ const fmt = (v: number) => {
       </div>
     </nav>
 
-    <!-- CELEBRATION BANNER -->
-    <div class="celebration-banner">
-      <div class="container">
-        <div class="celebration-poppers">🎉🎊🎉</div>
-        <h2 class="celebration-title">
-          A <a href="https://lerian.studio" target="_blank" rel="noopener">Lerian</a> é a primeira empresa<br />Destaque do {program.name}!
-        </h2>
-        <p class="celebration-subtitle">Obrigado por acreditar no programa desde o início.</p>
-        <img src="/logos/lerian.png" alt="Lerian" class="celebration-logo" />
+    {/* CELEBRATION BANNER — set sponsorBanner.enabled = true to show */}
+    {sponsorBanner.enabled && (
+      <div class="celebration-banner">
+        <div class="container">
+          <div class="celebration-poppers">🎉🎊🎉</div>
+          <h2 class="celebration-title">
+            A <a href={sponsorBanner.url} target="_blank" rel="noopener">{sponsorBanner.name}</a> é a primeira empresa<br />{sponsorBanner.tier} do {program.name}!
+          </h2>
+          <p class="celebration-subtitle">Obrigado por acreditar no programa desde o início.</p>
+          <img src={sponsorBanner.logo} alt={sponsorBanner.name} class="celebration-logo" />
+        </div>
       </div>
-    </div>
+    )}
 
     <!-- HERO -->
     <section class="hero">
@@ -1152,7 +1162,7 @@ const fmt = (v: number) => {
             <div class="item-card-icon">⭐</div>
             <h4>{tiers.destaque.label}</h4>
             <p class="item-card-tagline">{tiers.destaque.tagline}</p>
-            <p class="item-card-audience">1 de {tiers.destaque.maxSlots} slots preenchidos — resta 1 vaga</p>
+            <p class="item-card-audience">Apenas {tiers.destaque.maxSlots} slots por ano</p>
             <ul>
               <li>Menção individual pelo host no início de todos os episódios</li>
               <li>Logo em posição de destaque nos materiais (acima dos apoiadores)</li>
@@ -1258,7 +1268,7 @@ const fmt = (v: number) => {
             <tr>
               <td>Slots disponíveis</td>
               <td>{tiers.apoiador.maxSlots} por ano</td>
-              <td>1 de {tiers.destaque.maxSlots} preenchidos</td>
+              <td>{tiers.destaque.maxSlots} por ano</td>
               <td>{tiers.parceiro.slotsPerEpisode} por episódio</td>
             </tr>
             <tr class="highlight-row">
