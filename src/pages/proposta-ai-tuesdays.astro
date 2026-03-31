@@ -52,7 +52,7 @@ const tiers = {
 const proposal = { date: 'Março 2026' };
 
 const sponsorBanner = {
-  enabled: false,
+  enabled: true,
   name: 'Lerian',
   url: 'https://lerian.studio',
   logo: '/logos/lerian.png',
@@ -1162,7 +1162,7 @@ const fmt = (v: number) => {
             <div class="item-card-icon">⭐</div>
             <h4>{tiers.destaque.label}</h4>
             <p class="item-card-tagline">{tiers.destaque.tagline}</p>
-            <p class="item-card-audience">Apenas {tiers.destaque.maxSlots} slots por ano</p>
+            <p class="item-card-audience">1 de {tiers.destaque.maxSlots} slots preenchidos — resta 1 vaga</p>
             <ul>
               <li>Menção individual pelo host no início de todos os episódios</li>
               <li>Logo em posição de destaque nos materiais (acima dos apoiadores)</li>
@@ -1268,7 +1268,7 @@ const fmt = (v: number) => {
             <tr>
               <td>Slots disponíveis</td>
               <td>{tiers.apoiador.maxSlots} por ano</td>
-              <td>{tiers.destaque.maxSlots} por ano</td>
+              <td>1 de {tiers.destaque.maxSlots} preenchidos</td>
               <td>{tiers.parceiro.slotsPerEpisode} por episódio</td>
             </tr>
             <tr class="highlight-row">
