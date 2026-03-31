@@ -202,22 +202,63 @@ const fmt = (v: number) => {
       /* CELEBRATION BANNER */
       .celebration-banner {
         background: var(--accent);
-        padding: 0.8rem 0;
+        padding: 4rem 0;
         text-align: center;
+        position: relative;
+        overflow: hidden;
       }
 
-      .celebration-text {
+      .celebration-banner::before {
+        content: '🎉';
+        position: absolute;
+        font-size: 6rem;
+        top: 50%;
+        left: 8%;
+        transform: translateY(-50%) rotate(-15deg);
+        opacity: 0.25;
+      }
+
+      .celebration-banner::after {
+        content: '🎉';
+        position: absolute;
+        font-size: 6rem;
+        top: 50%;
+        right: 8%;
+        transform: translateY(-50%) rotate(15deg);
+        opacity: 0.25;
+      }
+
+      .celebration-poppers {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .celebration-title {
         font-family: 'Barlow', sans-serif;
-        font-weight: 600;
-        font-size: 0.9rem;
+        font-weight: 800;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
         color: white;
-        letter-spacing: 0.01em;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 0.6rem;
       }
 
-      .celebration-text a {
+      .celebration-title a {
         color: white;
         text-decoration: underline;
-        font-weight: 700;
+        text-underline-offset: 3px;
+      }
+
+      .celebration-subtitle {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 400;
+      }
+
+      .celebration-logo {
+        height: 28px;
+        margin-top: 1.2rem;
+        opacity: 0.9;
       }
 
       /* HERO */
@@ -971,9 +1012,12 @@ const fmt = (v: number) => {
     <!-- CELEBRATION BANNER -->
     <div class="celebration-banner">
       <div class="container">
-        <p class="celebration-text">
-          🎉 A <a href="https://lerian.studio" target="_blank" rel="noopener">Lerian</a> é a primeira empresa Destaque do {program.name}! 🎉
-        </p>
+        <div class="celebration-poppers">🎉🎊🎉</div>
+        <h2 class="celebration-title">
+          A <a href="https://lerian.studio" target="_blank" rel="noopener">Lerian</a> é a primeira empresa<br />Destaque do {program.name}!
+        </h2>
+        <p class="celebration-subtitle">Obrigado por acreditar no programa desde o início.</p>
+        <img src="/logos/lerian.png" alt="Lerian" class="celebration-logo" />
       </div>
     </div>
 
