@@ -58,7 +58,7 @@ const episodes = [
   { number: '03', date: '07/04', tema: '[Tema do episódio]', speaker: 'Thiago Yukio', company: 'espresso labs', companyUrl: '', linkedin: '', status: 'confirmado' },
   { number: '04', date: '28/04', tema: '[Tema do episódio]', speaker: 'Daniel Polistchuck', company: 'CG Labs', companyUrl: '', linkedin: '', status: 'confirmado' },
   { number: '05', date: '05/05', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
-  { number: '06', date: '19/05', tema: '[Tema do episódio]', speaker: 'Fred Amaral', company: 'Lerian', companyUrl: 'https://lerian.studio', linkedin: '', status: 'confirmado' },
+  { number: '06', date: '19/05', tema: '[Tema do episódio]', speaker: 'Fred Amaral', company: 'Lerian', companyUrl: 'https://lerian.studio', companyLogo: '/logos/lerian.png', linkedin: '', status: 'confirmado' },
   { number: '07', date: '02/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
   { number: '08', date: '16/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
   { number: '09', date: '30/06', tema: '[Tema do episódio]', speaker: '', company: '', companyUrl: '', linkedin: '', status: 'disponível' },
@@ -307,6 +307,7 @@ const fmt = (v: number) => {
         padding: 4rem 0;
         border-bottom: 1px solid var(--border);
         overflow: hidden;
+        text-align: center;
       }
 
       .section-label {
@@ -334,6 +335,8 @@ const fmt = (v: number) => {
         max-width: 640px;
         line-height: 1.8;
         margin-bottom: 2rem;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .section-body strong {
@@ -354,6 +357,7 @@ const fmt = (v: number) => {
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 1.8rem;
+        text-align: left;
         transition: transform 200ms ease, box-shadow 200ms ease;
       }
 
@@ -462,10 +466,14 @@ const fmt = (v: number) => {
         margin-top: 1.5rem;
       }
 
+      .pricing-table,
+      .schedule-table {
+        text-align: left;
+      }
+
       .pricing-table th,
       .pricing-table td {
         padding: 1rem 1.2rem;
-        text-align: left;
         font-size: 0.88rem;
         border-bottom: 1px solid var(--border);
       }
@@ -556,6 +564,19 @@ const fmt = (v: number) => {
         font-size: 0.78rem;
       }
 
+      .schedule-table .ep-speaker-cell {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .schedule-table .ep-company-logo {
+        height: 18px;
+        width: auto;
+        opacity: 0.7;
+        filter: grayscale(1);
+      }
+
       .schedule-table .ep-company {
         font-size: 0.75rem;
         color: var(--text-dim);
@@ -640,7 +661,9 @@ const fmt = (v: number) => {
       .audience-list {
         list-style: none;
         padding: 0;
-        margin: 1rem 0 0;
+        margin: 1rem auto 0;
+        max-width: 400px;
+        text-align: left;
       }
 
       .audience-list li {
@@ -664,6 +687,10 @@ const fmt = (v: number) => {
         margin-top: 2.5rem;
         position: relative;
         padding-left: 1.2rem;
+        max-width: 540px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
       }
 
       .steps::before {
@@ -745,6 +772,8 @@ const fmt = (v: number) => {
       /* SAMPLE CALL */
       .sample-call {
         margin-top: 2rem;
+        margin-left: auto;
+        margin-right: auto;
         border-radius: var(--radius);
         overflow: hidden;
         border: 1px solid var(--border);
@@ -1153,7 +1182,6 @@ const fmt = (v: number) => {
             <tr>
               <th>#</th>
               <th>Data</th>
-              <th>Tema</th>
               <th>Convidado / Parceiro</th>
               <th>Status</th>
             </tr>
@@ -1163,14 +1191,16 @@ const fmt = (v: number) => {
               <tr class={ep.status === 'realizado' ? 'past' : ''}>
                 <td class="ep-num">{ep.number}</td>
                 <td>{ep.date || '—'}</td>
-                <td>{ep.tema}</td>
                 <td class={ep.status === 'confirmado' ? 'confirmed' : ''}>
                   {ep.speaker ? (
-                    <span>
-                      {ep.linkedin ? <a href={ep.linkedin} target="_blank" rel="noopener">{ep.speaker}</a> : ep.speaker}
-                      {ep.company && (
-                        <span class="ep-company"> — {ep.companyUrl ? <a href={ep.companyUrl} target="_blank" rel="noopener">{ep.company}</a> : ep.company}</span>
-                      )}
+                    <span class="ep-speaker-cell">
+                      {ep.companyLogo && <img src={ep.companyLogo} alt={ep.company} class="ep-company-logo" />}
+                      <span>
+                        {ep.linkedin ? <a href={ep.linkedin} target="_blank" rel="noopener">{ep.speaker}</a> : ep.speaker}
+                        {ep.company && (
+                          <span class="ep-company"> — {ep.companyUrl ? <a href={ep.companyUrl} target="_blank" rel="noopener">{ep.company}</a> : ep.company}</span>
+                        )}
+                      </span>
                     </span>
                   ) : '—'}
                 </td>
